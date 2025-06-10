@@ -1,11 +1,20 @@
 <template>
-  <div class="flex ml-4">
-    <UTooltip text="Create a new widget">
+  <div class="flex ml-3">
+    <UTooltip text="Add a new chart widget">
       <UButton
-        label="New Widget"
+        label="New Chart Widget"
         icon="i-lucide-plus"
-        @click="addItem"
+        @click="addChartItem"
         target="_blank"
+      />
+    </UTooltip>
+    <UTooltip text="Add a new card widget">
+      <UButton
+        label="New Card Widget"
+        icon="i-lucide-plus"
+        @click="addCardItem"
+        target="_blank"
+        class="ml-2"
       />
     </UTooltip>
   </div>
@@ -109,16 +118,17 @@
 import { ref } from 'vue'
 import type { ContextMenuItem } from '@nuxt/ui'
 
-const isModalOpen = ref(false)
+// const isModalOpen = ref(false)
 
 // Editing widget title state
 const isEditingTitleOpen = ref(false)
 const editingWidget = ref<{ id: string; title: string } | null>(null)
 
 const layout = ref([
-  { x: 0, y: 0, w: 3, h: 2, i: '0', title: 'Widget 0' },
-  { x: 3, y: 0, w: 3, h: 2, i: '1', title: 'Widget 1' },
-  { x: 6, y: 0, w: 3, h: 2, i: '2', title: 'Widget 2' },
+  { x: 0, y: 0, w: 3, h: 2, i: '0', title: 'Card 1' },
+  { x: 3, y: 0, w: 3, h: 2, i: '1', title: 'Card 2' },
+  { x: 0, y: 0, w: 6, h: 4, i: '2', title: 'Chart 1' },
+  { x: 6, y: 0, w: 6, h: 4, i: '3', title: 'Chart 2' },
 ])
 
 const counter = ref(3)
@@ -217,7 +227,22 @@ function findNextAvailablePosition(
   return { x: 0, y: 0 }
 }
 
-function addItem() {
+function addChartItem() {
+  const w = 6,
+    h = 4
+  const { x, y } = findNextAvailablePosition(layout.value, w, h)
+  layout.value.push({
+    x,
+    y,
+    w,
+    h,
+    i: String(counter.value),
+    title: `Chart ${counter.value}`,
+  })
+  counter.value++
+}
+
+function addCardItem() {
   const w = 3,
     h = 2
   const { x, y } = findNextAvailablePosition(layout.value, w, h)
@@ -227,7 +252,7 @@ function addItem() {
     w,
     h,
     i: String(counter.value),
-    title: `Widget ${counter.value}`,
+    title: `Card ${counter.value}`,
   })
   counter.value++
 }
