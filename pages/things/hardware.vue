@@ -1,11 +1,7 @@
 <template>
 	<div class="flex w-full flex-1 flex-col">
 		<div class="flex px-4 py-3.5">
-			<UInput
-				v-model="globalFilter"
-				class="max-w-sm"
-				placeholder="Filter..."
-			/>
+			<UInput v-model="globalFilter" class="max-w-sm" placeholder="Filter..." />
 		</div>
 		<div>
 			<UBadge
