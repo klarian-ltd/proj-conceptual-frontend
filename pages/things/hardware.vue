@@ -1,38 +1,33 @@
 <template>
-	<div class="flex h-screen overflow-hidden">
-		<!-- Sidebar -->
-		<Sidebar />
-
-		<div class="flex w-full flex-1 flex-col">
-			<div class="flex px-4 py-3.5">
-				<UInput
-					v-model="globalFilter"
-					class="max-w-sm"
-					placeholder="Filter..."
+	<div class="flex w-full flex-1 flex-col">
+		<div class="flex px-4 py-3.5">
+			<UInput
+				v-model="globalFilter"
+				class="max-w-sm"
+				placeholder="Filter..."
+			/>
+		</div>
+		<div>
+			<UBadge
+				color="primary"
+				variant="outline"
+				class="ml-4 flex justify-center rounded-lg"
+			>
+				<UTable
+					ref="table"
+					v-model:global-filter="globalFilter"
+					v-model:pagination="pagination"
+					:data="data"
+					:columns="columns"
+					:pagination-options="{
+						getPaginationRowModel: getPaginationRowModel(),
+					}"
+					class="w-full"
 				/>
-			</div>
-			<div>
-				<UBadge
-					color="primary"
-					variant="outline"
-					class="ml-4 flex justify-center rounded-lg"
-				>
-					<UTable
-						ref="table"
-						v-model:global-filter="globalFilter"
-						v-model:pagination="pagination"
-						:data="data"
-						:columns="columns"
-						:pagination-options="{
-							getPaginationRowModel: getPaginationRowModel(),
-						}"
-						class="w-full"
-					/>
-				</UBadge>
-			</div>
-			<div class="flex justify-center pt-4">
-				<UPagination />
-			</div>
+			</UBadge>
+		</div>
+		<div class="flex justify-center pt-4">
+			<UPagination />
 		</div>
 	</div>
 </template>
