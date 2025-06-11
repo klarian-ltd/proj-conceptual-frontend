@@ -5,8 +5,8 @@
 	>
 		<!-- Round button on the right border -->
 		<button
-			@click="isToggled = !isToggled"
 			class="absolute top-1/2 right-0 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-gray-900 shadow transition-transform duration-200 hover:scale-110"
+			@click="isToggled = !isToggled"
 		>
 			<UIcon
 				:name="

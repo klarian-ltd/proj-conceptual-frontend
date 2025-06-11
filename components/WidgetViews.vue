@@ -4,17 +4,17 @@
 			<UButton
 				label="New Chart Widget"
 				icon="i-lucide-plus"
-				@click="addChartItem"
 				target="_blank"
+				@click="addChartItem"
 			/>
 		</UTooltip>
 		<UTooltip text="Add a new card widget">
 			<UButton
 				label="New Card Widget"
 				icon="i-lucide-plus"
-				@click="addCardItem"
 				target="_blank"
 				class="ml-2"
+				@click="addCardItem"
 			/>
 		</UTooltip>
 	</div>
@@ -49,14 +49,14 @@
 					<span class="text-sm font-bold">{{ item.title }}</span>
 					<div class="flex">
 						<UTooltip text="Edit widget title">
-							<button @click="openEditTitle(item.i)" class="mr-2 text-sm">
+							<button class="mr-2 text-sm" @click="openEditTitle(item.i)">
 								<UIcon name="heroicons-solid:pencil" class="size-5" />
 							</button>
 						</UTooltip>
 						<UTooltip text="Remove widget">
 							<button
-								@click="removeItem(item.i)"
 								class="text-sm text-red-400 transition-colors duration-200 hover:text-red-500"
+								@click="removeItem(item.i)"
 							>
 								<UIcon name="heroicons-solid:x-mark" class="size-5" />
 							</button>
@@ -101,14 +101,14 @@
 						<UButton
 							label="Save"
 							color="primary"
-							@click="saveTitle"
 							:disabled="!editingWidget.title.trim()"
 							class="w-full"
+							@click="saveTitle"
 						/>
 						<UButton
 							label="Cancel"
-							@click="cancelEditTitle"
 							class="w-full bg-red-400 hover:bg-red-500"
+							@click="cancelEditTitle"
 						/>
 					</div>
 				</div>
