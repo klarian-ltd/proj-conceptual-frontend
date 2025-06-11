@@ -1,5 +1,6 @@
 # proj-conceptual-frontend
-Visual Layer Concept Built In NuxtJs 
+
+Visual Layer Concept Built In NuxtJs
 
 ## Nuxt Minimal Starter
 
