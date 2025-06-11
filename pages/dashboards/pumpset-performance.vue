@@ -1,15 +1,15 @@
 <template>
-	<!-- Header Content Area -->
-	<header>
+	<div>
+		<!-- Inner Header Content Area -->
 		<div class="mb-4 flex items-center justify-between">
 			<h1 class="text-3xl font-bold">Pumpset Performance</h1>
 			<DashHeader />
 		</div>
-	</header>
-	<USeparator
-		icon="material-symbols-light:dashboard-customize-rounded"
-		class="mb-4"
-	/>
-	<!-- Main Content Area -->
-	<WidgetViews />
+		<USeparator
+			icon="material-symbols-light:dashboard-customize-rounded"
+			class="mb-4"
+		/>
+		<!-- Inner Main Content Area -->
+		<WidgetViews />
+	</div>
 </template>
