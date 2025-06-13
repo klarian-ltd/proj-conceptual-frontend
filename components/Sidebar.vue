@@ -2,6 +2,7 @@
 	<!-- Sidebar -->
 	<aside
 		class="relative flex h-full flex-shrink-0 flex-col border-r-2 border-white bg-gray-900 p-4 text-white"
+		:class="!isToggled ? 'w-64' : ''"
 	>
 		<!-- Round button on the right border -->
 		<button
@@ -21,56 +22,30 @@
 		<!-- Navigation -->
 		<Navigation :is-toggled="isToggled" />
 
-		<!-- Avatar Group at the bottom -->
+		<!-- User Profile Section at the bottom -->
 		<div
-			class="mt-auto"
+			v-if="loggedIn && user"
+			class="pt-4 mt-auto border-t border-gray-800"
 			:class="
 				isToggled
-					? 'flex flex-col items-center space-y-2'
-					: 'mt-auto flex flex-col items-center space-y-3'
+					? 'flex flex-col items-center gap-2'
+					: 'flex justify-between items-center'
 			"
 		>
-			<!-- Juno Logo on top -->
-			<NuxtPicture
-				:src="isToggled ? '/junobrandicon.png' : '/junologowhite.png'"
-				:width="isToggled ? '20' : '120'"
-				height="auto"
-				quality="80"
-				alt="Juno Logo"
-				class="mb-6"
-			/>
-			<USeparator class="mb-4" />
-			<!-- Avatar + Logout Button Row -->
-			<div
-				:class="
-					isToggled
-						? 'flex flex-col items-center space-y-2'
-						: 'flex w-full flex-row items-center justify-around space-x-2'
-				"
-			>
-				<UDropdownMenu size="xl" :items="dropitems">
-					<UTooltip text="feyfeyy">
-						<UChip inset color="success">
-							<UAvatar
-								src="https://github.com/fey-feyy.png"
-								alt="Feyaaz Chishty"
-								:class="isToggled ? 'mb-2 hover:scale-110' : 'hover:scale-110'"
-							/>
-						</UChip>
-					</UTooltip>
-				</UDropdownMenu>
-
-				<UButton
-					size="md"
-					:label="!isToggled ? 'Logout' : ''"
-					:icon="
-						isToggled
-							? 'heroicons:arrow-right-end-on-rectangle-20-solid'
-							: undefined
-					"
-					:class="isToggled ? 'w-full justify-center' : ''"
-				/>
+			<div class="flex items-center gap-2">
+				<UAvatar :src="user.picture" :alt="user.first_name" />
+				<div v-if="!isToggled">
+					<p class="text-sm font-medium">{{ user.first_name }} {{ user.last_name }}</p>
+					<p class="text-xs text-gray-500">{{ user.username }}</p>
+				</div>
 			</div>
+			<UButton
+				size="md"
+				:label="!isToggled ? 'Logout' : ''"
+				:icon="isToggled ? 'heroicons:arrow-right-end-on-rectangle-20-solid' : undefined"
+				:class="isToggled ? 'w-full justify-center' : ''"
+				@click="handleLogout"
+			/>
 		</div>
 	</aside>
 </template>
@@ -78,8 +53,11 @@
 <script setup lang="ts">
 	import { ref } from 'vue';
 	import type { DropdownMenuItem } from '@nuxt/ui';
+	import { useActiveUser } from '~/composables/useActiveUser';
+	// useUserSession is auto-imported by Nuxt Auth Utils
 
 	const isToggled = ref(false);
+	const { user, loggedIn, clear } = useActiveUser();
 
 	const dropitems = ref<DropdownMenuItem[]>([
 		{
@@ -95,4 +73,9 @@
 			icon: 'i-lucide-cog',
 		},
 	]);
+
+	const handleLogout = async () => {
+		await clear();
+		await navigateTo('/login');
+	};
 </script>

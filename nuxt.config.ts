@@ -1,26 +1,22 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-import { resolve } from 'path';
+import { defineNuxtConfig } from 'nuxt/config'
 
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	compatibilityDate: '2025-05-15',
-	devtools: { enabled: true },
-	modules: [
-		'@nuxt/ui',
-		'@nuxt/icon',
-		'@nuxt/image',
-		'@nuxtjs/tailwindcss',
-		'@pinia/nuxt',
-		'@nuxt/eslint',
-	],
-	css: ['~/assets/css/main.css'],
-	tailwindcss: {
-		exposeConfig: true,
-		viewer: true,
-	},
-	alias: {
-		'@': resolve(__dirname, '/'),
-	},
-	image: {
-		format: ['webp'],
-	},
+								compatibilityDate: '2025-05-15',
+								devtools: { enabled: true },
+								modules: [
+								  '@nuxt/ui',
+								  '@nuxt/icon',
+								  '@nuxt/image',
+								  '@pinia/nuxt',
+								  '@nuxt/eslint',
+								  'nuxt-auth-utils',
+								],
+								css: ['~/assets/css/main.css'],
+								alias: {
+																'@': new URL('.', import.meta.url).pathname,
+								},
+								image: {
+																format: ['webp'],
+								},
 });

@@ -118,8 +118,20 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from 'vue';
+	import { ref, watch } from 'vue';
 	import type { ContextMenuItem } from '@nuxt/ui';
+
+	const props = defineProps({
+		initialLayout: {
+			type: Array as () => any[],
+			default: () => ([
+				{ x: 0, y: 0, w: 3, h: 2, i: '0', title: 'Card 1' },
+				{ x: 3, y: 0, w: 3, h: 2, i: '1', title: 'Card 2' },
+				{ x: 0, y: 0, w: 6, h: 4, i: '2', title: 'Chart 1' },
+				{ x: 6, y: 0, w: 6, h: 4, i: '3', title: 'Chart 2' },
+			]),
+		},
+	});
 
 	// const isModalOpen = ref(false)
 
@@ -127,14 +139,13 @@
 	const isEditingTitleOpen = ref(false);
 	const editingWidget = ref<{ id: string; title: string } | null>(null);
 
-	const layout = ref([
-		{ x: 0, y: 0, w: 3, h: 2, i: '0', title: 'Card 1' },
-		{ x: 3, y: 0, w: 3, h: 2, i: '1', title: 'Card 2' },
-		{ x: 0, y: 0, w: 6, h: 4, i: '2', title: 'Chart 1' },
-		{ x: 6, y: 0, w: 6, h: 4, i: '3', title: 'Chart 2' },
-	]);
+	const layout = ref(props.initialLayout);
 
-	const counter = ref(3);
+	watch(() => props.initialLayout, (newLayout) => {
+		layout.value = newLayout;
+	});
+
+	const counter = ref(layout.value.length);
 
 	function getContextItems(id: string): ContextMenuItem[] {
 		return [
