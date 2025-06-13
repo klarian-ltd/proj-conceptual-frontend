@@ -22,6 +22,13 @@
 		<!-- Navigation -->
 		<Navigation :is-toggled="isToggled" />
 
+		<!-- Klarian Admin Button -->
+		<div v-if="isKlarian" class="mt-4">
+			<UButton to="/klarian/admin" color="primary" block>
+				Klarian Admin
+			</UButton>
+		</div>
+
 		<!-- User Profile Section at the bottom -->
 		<div
 			v-if="loggedIn && user"
@@ -51,13 +58,16 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from 'vue';
+	import { ref, computed } from 'vue';
 	import type { DropdownMenuItem } from '@nuxt/ui';
 	import { useActiveUser } from '~/composables/useActiveUser';
+	import { useTenant } from '~/composables/useTenant';
 	// useUserSession is auto-imported by Nuxt Auth Utils
 
 	const isToggled = ref(false);
 	const { user, loggedIn, clear } = useActiveUser();
+	const { tenant } = useTenant();
+	const isKlarian = computed(() => tenant.value?.name?.toLowerCase() === 'klarian');
 
 	const dropitems = ref<DropdownMenuItem[]>([
 		{
