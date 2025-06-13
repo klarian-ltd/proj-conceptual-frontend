@@ -18,30 +18,46 @@ export default defineEventHandler(() => {
 						label: 'Network Utilisation',
 						icon: 'ph:share-network',
 						description: 'Fetched from API.',
-						to: '/dashboards/network-utilisation',
+						to: '/dashboards/1',
 					},
 					{
 						label: 'Pumpset Performance',
 						icon: 'ph:speedometer-bold',
 						description: 'Fetched from API.',
-						to: '/dashboards/pumpset-performance',
+						to: '/dashboards/2',
 					},
 					{
 						label: 'Pump Health',
 						icon: 'maki:defibrillator',
 						description: 'Fetched from API.',
-						to: '/dashboards/pump-health',
+						to: '/dashboards/3',
 					},
 					{
 						label: 'Network Performance',
 						icon: 'ic:sharp-network-check',
 						description: 'Fetched from API.',
-						to: '/dashboards/network-performance',
+						to: '/dashboards/4',
 					},
 				],
 			},
 		],
 		[
+			{
+				label: 'Data Tables',
+				icon: 'i-heroicons-table-cells-20-solid',
+				children: [
+					{
+						label: 'Assessments',
+						icon: 'i-heroicons-document-text',
+						to: '/assessments',
+					},
+					{
+						label: 'Attachments',
+						icon: 'i-heroicons-paper-clip',
+						to: '/attachments',
+					},
+				],
+			},
 			{
 				label: 'Things',
 				icon: 'material-symbols:layers-outline',

@@ -12,8 +12,8 @@ interface Dashboard {
   layout: LayoutItem[];
 }
 
-const mockDashboards: Record<string, Dashboard> = {
-  'pump-health': {
+const mockDashboards: Record<number, Dashboard> = {
+  1: {
     title: 'Pump Health Dashboard',
     layout: [
       { i: 'a', x: 0, y: 0, w: 6, h: 2, title: 'Pump Status Overview' },
@@ -21,7 +21,7 @@ const mockDashboards: Record<string, Dashboard> = {
       { i: 'c', x: 0, y: 2, w: 12, h: 4, title: 'Pressure Trends' },
     ],
   },
-  'network-performance': {
+  2: {
     title: 'Network Performance',
     layout: [
       { i: 'a', x: 0, y: 0, w: 12, h: 2, title: 'Overall Network Latency' },
@@ -29,13 +29,14 @@ const mockDashboards: Record<string, Dashboard> = {
       { i: 'c', x: 6, y: 2, w: 6, h: 3, title: 'Packet Loss' },
     ],
   },
-  default: {
-    title: 'Dashboard Not Found',
-    layout: [],
-  },
+};
+
+const defaultDashboard: Dashboard = {
+  title: 'Dashboard Not Found',
+  layout: [],
 };
 
 export default defineEventHandler((event) => {
-  const id = event.context.params?.id as string;
-  return mockDashboards[id] || mockDashboards.default;
+  const id = Number(event.context.params?.id);
+  return mockDashboards[id] || defaultDashboard;
 });

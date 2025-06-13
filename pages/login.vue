@@ -36,6 +36,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 // useUserSession is auto-imported by Nuxt Auth Utils
+import { useTenant } from '~/composables/useTenant';
+import { useUserPreferences } from '~/composables/useUserPreferences';
 
 const username = ref('');
 const password = ref('');
@@ -43,6 +45,8 @@ const isLoading = ref(false);
 const error = ref<{ message: string } | null>(null);
 
 const { fetch } = useUserSession();
+const { tenant } = useTenant();
+const { setHomepage } = useUserPreferences();
 
 const handleLogin = async () => {
   isLoading.value = true;
@@ -53,7 +57,18 @@ const handleLogin = async () => {
       body: { username: username.value, password: password.value },
     });
     await fetch();
-    await navigateTo('/');
+    // Fetch allowed homepages for the tenant
+    const tenantName = tenant.value?.name?.toLowerCase();
+    let homepage = '/';
+    if (tenantName) {
+      const homepageOptions = await $fetch<{ label: string; path: string }[]>(`/api/tenants/${tenantName}`);
+      console.log('Tenant:', tenantName, 'Homepage options:', homepageOptions);
+      homepage = homepageOptions[0]?.path || '/';
+    } else {
+      console.log('No tenant name found:', tenant.value);
+    }
+    setHomepage(homepage);
+    await navigateTo(homepage);
   } catch (e: any) {
     error.value = { message: e.data?.message || 'An unexpected error occurred.' };
   } finally {
