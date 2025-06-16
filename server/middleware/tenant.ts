@@ -24,7 +24,7 @@ export default defineEventHandler((event) => {
   }
 
   // Construct the dynamic backend URL based on the tenant.
-  const tenantBackendUrl = `http://${tenantId}.localhost:8000`;
+  const tenantBackendUrl = `https://${tenantId}.localhost`;
 
   event.context.tenantId = tenantId;
   event.context.tenantBackendUrl = tenantBackendUrl;

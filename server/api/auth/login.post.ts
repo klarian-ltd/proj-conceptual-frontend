@@ -10,11 +10,12 @@ const bodySchema = z.object({
 export default defineEventHandler(async (event) => {
   const { username, password } = await readValidatedBody(event, bodySchema.parse);
   const tenantBackendUrl = event.context.tenantBackendUrl;
-  const tokenUrl = `${tenantBackendUrl}/api/auth/token/`;
+  // http://acme.localhost:8000/_allauth/app/v1/auth/login
+  const tokenUrl = `${tenantBackendUrl}/_allauth/app/v1/auth/login`;
 
   try {
     // Step 1: Get tokens from the backend.
-    const { access: access_token, refresh: refresh_token } = await $fetch<{ access: string; refresh: string }>(tokenUrl, {
+    const response = await $fetch<{ meta: { access_token: string; refresh_token: string } }>(tokenUrl, {
       method: 'POST',
       body: {
         username,
@@ -22,11 +23,20 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    console.log('response', response);
+
+    const { access_token, refresh_token } = response.meta;
+
+    console.log('access_token', access_token);
+    console.log('refresh_token', refresh_token);
+
     // Step 2: Decode token to get user_id.
     const decodedToken = jwt.decode(access_token) as {
       user_id: number;
       role?: string;
     };
+
+    console.log('decodedToken', decodedToken);
 
     if (!decodedToken?.user_id) {
       throw new Error('User ID not found in token');

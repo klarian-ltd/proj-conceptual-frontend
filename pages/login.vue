@@ -2,6 +2,9 @@
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
       <h1 class="text-2xl font-bold text-center text-gray-900">Login</h1>
+      <UButton @click="handleMicrosoftLogin" color="primary" block class="mb-4">
+        Sign in with Microsoft
+      </UButton>
       <form class="space-y-6" @submit.prevent="handleLogin">
         <div v-if="error" class="p-4 text-sm text-red-700 bg-red-100 rounded-md">
           {{ error.message }}
@@ -47,6 +50,15 @@ const error = ref<{ message: string } | null>(null);
 const { fetch } = useUserSession();
 const { tenant } = useTenant();
 const { setHomepage } = useUserPreferences();
+
+function handleMicrosoftLogin() {
+  const subdomain = tenant.value?.name?.toLowerCase();
+  if (!subdomain) return;
+  const backendUrl = tenant.value.backendUrl || `${subdomain}.localhost`;
+  const callbackUrl = encodeURIComponent(`${window.location.origin}/auth/callback`);
+  const url = `${backendUrl}/accounts/microsoft/login/?process=login&next=${callbackUrl}`;
+  window.location.href = url;
+}
 
 const handleLogin = async () => {
   isLoading.value = true;
