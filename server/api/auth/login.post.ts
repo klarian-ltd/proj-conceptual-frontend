@@ -13,6 +13,11 @@ export default defineEventHandler(async (event) => {
   // http://acme.localhost:8000/_allauth/app/v1/auth/login
   const tokenUrl = `${tenantBackendUrl}/_allauth/app/v1/auth/login`;
 
+  // Extra logging for debugging
+  console.log('tokenUrl:', tokenUrl);
+  console.log('username:', username);
+  console.log('tenantBackendUrl:', tenantBackendUrl);
+
   try {
     // Step 1: Get tokens from the backend.
     const response = await $fetch<{ meta: { access_token: string; refresh_token: string } }>(tokenUrl, {
@@ -61,8 +66,10 @@ export default defineEventHandler(async (event) => {
     return { user, tenantId, tenantBackendUrl };
   } catch (e: any) {
     console.error('Login error:', e);
+    console.error('Login error (stringified):', JSON.stringify(e, null, 2));
+    console.error('Login error keys:', Object.keys(e));
     const statusCode = e.response?.status || 500;
-    const message = e.data?.detail || e.data?.message || 'An error occurred during login.';
-    throw createError({ statusCode, statusMessage: message });
+    const message = e.data?.detail || e.data?.message || e.message || 'An error occurred during login.';
+    throw createError({ statusCode, statusMessage: message, data: e });
   }
 });

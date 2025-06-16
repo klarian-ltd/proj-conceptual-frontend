@@ -139,10 +139,20 @@ const handleLogin = async () => {
   isLoading.value = true;
   error.value = null;
   try {
-    const { tenantId, tenantBackendUrl } = await $fetch<{ user: User, tenantId: string, tenantBackendUrl: string }>('/api/auth/login', {
+
+    console.log('tenantStore', tenantStore.$state);
+    console.log('username', username.value);
+    console.log('password', password.value);
+
+    const response = await $fetch<{ user: User, tenantId: string, tenantBackendUrl: string }>('/api/auth/login', {
       method: 'POST',
       body: { username: username.value, password: password.value },
     });
+
+    console.log('response', response);
+
+    const { tenantId, tenantBackendUrl } = response;
+
     // Synchronize the global tenant state using Pinia
     tenantStore.setTenant({
       ...tenantStore.$state,
@@ -163,6 +173,7 @@ const handleLogin = async () => {
     setHomepage(homepage);
     await navigateTo(homepage);
   } catch (e: any) {
+    console.error('Login error:', e);
     error.value = { message: e.data?.message || 'An unexpected error occurred.' };
   } finally {
     isLoading.value = false;
