@@ -1,5 +1,5 @@
 import { ref, watchEffect } from 'vue';
-import { useTenant } from '~/composables/useTenant';
+import { useTenantStore } from '~/stores/tenant';
 import { useActiveUser } from '~/composables/useActiveUser';
 
 interface PaginatedResponse<T> {
@@ -19,8 +19,11 @@ export function usePaginatedApi<T>(endpoint: string, initialParams = {}) {
   const pageSize = ref(5);
 
   // Tenant and Auth
-  const { tenant } = useTenant();
+  const tenantStore = useTenantStore();
   const { session } = useActiveUser();
+
+  // Debug logging
+  console.log('[usePaginatedApi] tenant at start:', tenantStore.$state, 'process.server:', process.server, 'process.client:', process.client);
 
   // Fetch function
   const fetchData = async () => {
@@ -33,12 +36,15 @@ export function usePaginatedApi<T>(endpoint: string, initialParams = {}) {
         page: page.value,
       } as any).toString();
 
-      const baseURL = tenant.value?.backendUrl || '';
+      const baseURL = tenantStore.backendUrl || '';
       const accessToken = session.value?.accessToken;
       const headers: Record<string, string> = {};
       if (accessToken) {
         headers['Authorization'] = `Bearer ${accessToken}`;
       }
+
+      console.log('tenant', tenantStore.$state);
+      console.log('baseURL', baseURL);
 
       const res = await $fetch<PaginatedResponse<T>>(`${baseURL}${endpoint}?${params}`, {
         headers,

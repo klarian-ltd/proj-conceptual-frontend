@@ -1,4 +1,4 @@
-import { useState } from '#app';
+import { useState, useCookie } from '#app';
 
 interface TenantTheme {
   colors?: {
@@ -20,7 +20,7 @@ interface Tenant {
 }
 
 export const useTenant = () => {
-  const tenant = useState<Tenant>('tenant', () => ({
+  const defaultTenant: Tenant = {
     name: 'Default',
     backendUrl: '',
     theme: {
@@ -28,7 +28,20 @@ export const useTenant = () => {
       font: {}
     },
     features: {},
-  }));
+  };
+
+  // Use Nuxt's useCookie composable for SSR-friendly cookies
+  const tenantCookie = useCookie<Tenant>('tenant', { sameSite: 'lax' });
+  console.log('[useTenant] Cookie value on init:', tenantCookie.value);
+  const tenant = useState<Tenant>('tenant', () => tenantCookie.value || defaultTenant);
+
+  // Whenever tenant changes, update the cookie
+  function setTenant(newTenant: Tenant) {
+    console.log('[useTenant] Setting tenant and cookie:', newTenant);
+    tenant.value = newTenant;
+    tenantCookie.value = newTenant;
+    console.log('[useTenant] Cookie after set:', tenantCookie.value);
+  }
 
   const hasFeature = (feature: string): boolean => {
     // Ensure features object exists before checking
@@ -37,6 +50,7 @@ export const useTenant = () => {
 
   return {
     tenant,
+    setTenant,
     hasFeature,
   };
 };

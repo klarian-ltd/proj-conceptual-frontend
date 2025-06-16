@@ -9,7 +9,7 @@ const bodySchema = z.object({
 
 export default defineEventHandler(async (event) => {
   const { username, password } = await readValidatedBody(event, bodySchema.parse);
-  const tenantBackendUrl = event.context.tenantBackendUrl;
+  const { tenantId, tenantBackendUrl } = event.context;
   // http://acme.localhost:8000/_allauth/app/v1/auth/login
   const tokenUrl = `${tenantBackendUrl}/_allauth/app/v1/auth/login`;
 
@@ -58,7 +58,7 @@ export default defineEventHandler(async (event) => {
       refreshToken: refresh_token,
     });
 
-    return { user };
+    return { user, tenantId, tenantBackendUrl };
   } catch (e: any) {
     console.error('Login error:', e);
     const statusCode = e.response?.status || 500;
