@@ -23,4 +23,15 @@ export default defineNuxtConfig({
 	image: {
 		format: ['webp'],
 	},
+	runtimeConfig: {
+		// Private variables, only available on the server
+		microsoftClientSecret: process.env.MICROSOFT_CLIENT_SECRET,
+		djangoClientSecret: process.env.DJANGO_CLIENT_SECRET,
+
+		// Public variables, available on both client and server
+		public: {
+			microsoftClientId: process.env.MICROSOFT_CLIENT_ID,
+			djangoClientId: process.env.DJANGO_CLIENT_ID,
+		},
+	},
 });

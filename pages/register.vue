@@ -5,38 +5,13 @@
 			class="relative flex h-screen w-150 flex-shrink-0 flex-col bg-gray-900 text-white"
 		>
 			<div class="flex min-h-screen items-center justify-center">
+				<ULink to="/" class="text-blue-600 hover:underline">
+					<UIcon name="material-symbols:arrow-back-ios" class="size-7" />
+				</ULink>
 				<UCard class="w-full max-w-md rounded-2xl p-8 shadow-2xl">
 					<h1 class="mb-6 text-center text-2xl font-bold">
-						Login to your account
+						Register a account
 					</h1>
-
-					<!-- Tabs -->
-					<UTabs
-						:unmount-on-hide="false"
-						:items="productitems"
-						class="w-full"
-						size="xl"
-						@click="isToggled = !isToggled"
-					/>
-
-					<!-- Product Logo on top -->
-					<div
-						class="m-8 flex flex-col items-center transition-transform duration-200 hover:scale-110"
-					>
-						<NuxtPicture
-							:src="isToggled ? '/orkuslogowhite.png' : '/junologowhite.png'"
-							width="120"
-							:height="isToggled ? '33' : 'auto'"
-							quality="80"
-							alt="Juno Logo"
-						/>
-						<p v-if="isToggled" class="mt-2 text-xs">
-							A GeoHazard & Risk Management Tool
-						</p>
-						<p v-else class="mt-2 text-xs">
-							A Intelligent Pipeline Analysis Tool
-						</p>
-					</div>
 
 					<UForm class="space-y-4" @submit="onSubmit">
 						<UFormField label="Username" name="username">
@@ -57,26 +32,8 @@
 							/>
 						</UFormField>
 
-						<div class="flex items-center justify-between">
-							<ULink
-								to="/forgot-password"
-								class="text-sm text-blue-600 hover:underline"
-							>
-								Forgot password?
-							</ULink>
-						</div>
-
-						<UButton type="submit" block>
-							Sign In
-						</UButton>
+						<UButton type="submit" block>Register</UButton>
 					</UForm>
-
-					<p class="mt-6 text-center text-sm text-gray-600">
-						Don’t have an account?
-						<ULink to="/register" class="text-blue-600 hover:underline">
-							Sign up
-						</ULink>
-					</p>
 
 					<!-- Or Divider -->
 					<USeparator class="my-4" label="or" />
@@ -86,16 +43,9 @@
 						color="neutral"
 						block
 						class="flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300 mb-4"
-						@click="
-							() =>
-								authClient.signIn.oauth2({
-									providerId: 'django',
-									callbackURL: '/home',
-								})
-						"
 					>
 						<UIcon name="devicon:oauth" class="size-8" />
-						Sign in with OAuth2
+						Sign Up with OAuth2
 					</UButton>
 
 					<!-- Microsoft Sign-In Button -->
@@ -105,7 +55,7 @@
 						class="flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300"
 					>
 						<UIcon name="logos:microsoft-icon" class="size-7" />
-						Sign in with Microsoft
+						Sign Up with Microsoft
 					</UButton>
 
 					<!-- Product Logo on top -->
@@ -136,22 +86,7 @@
 </template>
 
 <script setup lang="ts">
-	import type { TabsItem } from '@nuxt/ui';
 	import { reactive, ref } from 'vue';
-	import { authClient } from '../lib/auth-client';
-
-	const isToggled = ref(false);
-
-	const productitems = ref<TabsItem[]>([
-		{
-			label: 'Juno',
-			slot: 'juno', // If you use slot content
-		},
-		{
-			label: 'Orkus',
-			slot: 'orkus',
-		},
-	]);
 
 	const items = [
 		'/mountains.png',
@@ -165,8 +100,6 @@
 		username: '',
 		password: '',
 	});
-
-	const sessionData = authClient.useSession();
 
 	function onSubmit() {
 		// Handle login logic
