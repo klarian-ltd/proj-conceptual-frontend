@@ -66,9 +66,7 @@
 							</ULink>
 						</div>
 
-						<UButton type="submit" block>
-							Sign In
-						</UButton>
+						<UButton type="submit" block>Sign In</UButton>
 					</UForm>
 
 					<p class="mt-6 text-center text-sm text-gray-600">
@@ -85,7 +83,7 @@
 					<UButton
 						color="neutral"
 						block
-						class="flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300 mb-4"
+						class="mb-4 flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300"
 						@click="
 							() =>
 								authClient.signIn.oauth2({

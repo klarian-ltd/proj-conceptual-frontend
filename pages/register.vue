@@ -42,7 +42,7 @@
 					<UButton
 						color="neutral"
 						block
-						class="flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300 mb-4"
+						class="mb-4 flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300"
 					>
 						<UIcon name="devicon:oauth" class="size-8" />
 						Sign Up with OAuth2
