@@ -11,6 +11,8 @@ export default defineNuxtConfig({
 		'@nuxtjs/tailwindcss',
 		'@pinia/nuxt',
 		'@nuxt/eslint',
+		['nuxt-plotly', { inject: true }],
+		'nuxt-plotly',
 	],
 	css: ['~/assets/css/main.css'],
 	tailwindcss: {
@@ -23,6 +25,11 @@ export default defineNuxtConfig({
 	},
 	image: {
 		format: ['webp'],
+	},
+	vite: {
+		optimizeDeps: {
+			include: ['plotly.js-dist-min'],
+		},
 	},
 	runtimeConfig: {
 		// Private variables, only available on the server
