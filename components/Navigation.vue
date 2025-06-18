@@ -23,7 +23,7 @@
 			},
 			{
 				label: 'Home',
-				to: '/',
+				to: '/home',
 				icon: 'ph:house-fill',
 			},
 			{
