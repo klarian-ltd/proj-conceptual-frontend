@@ -18,7 +18,8 @@ export default defineNuxtConfig({
 		viewer: true,
 	},
 	alias: {
-		'@': resolve(__dirname, '/'),
+		'@@': resolve(__dirname, '/'),
+		'@/types': resolve(__dirname, 'types'),
 	},
 	image: {
 		format: ['webp'],

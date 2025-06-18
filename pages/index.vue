@@ -75,7 +75,7 @@
 					</UForm>
 
 					<p class="mt-6 text-center text-sm text-gray-600">
-						Don’t have an account?
+						Don't have an account?
 						<ULink to="/register" class="text-blue-600 hover:underline">
 							Sign up
 						</ULink>
@@ -177,7 +177,6 @@
 		return errors;
 	};
 
-	const sessionData = authClient.useSession();
 	const config = useRuntimeConfig();
 
 	async function onSubmit(event: FormSubmitEvent<typeof form>) {
@@ -206,15 +205,20 @@
 		useCookie('access_token').value = token;
 
 		// Optionally fetch user info
-		await $fetch('http://localhost:8000/api/user', {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
 		try {
+			await $fetch('http://localhost:8000/api/user', {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
 			await navigateTo('/home');
 		} catch (err) {
-			console.error('Login failed:', err);
+			const toast = useToast();
+
+			toast.add({
+				title: 'Login failed',
+				description: 'Please try again',
+			});
 		}
 	}
 </script>
