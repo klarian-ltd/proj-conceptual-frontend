@@ -69,6 +69,7 @@
 							: undefined
 					"
 					:class="isToggled ? 'w-full justify-center' : ''"
+					@click="handleLogout"
 				/>
 			</div>
 		</div>
@@ -78,6 +79,8 @@
 <script setup lang="ts">
 	import { ref } from 'vue';
 	import type { DropdownMenuItem } from '@nuxt/ui';
+	import { authClient } from '~/lib/auth-client';
+	import { navigateTo } from 'nuxt/app';
 
 	const isToggled = ref(false);
 
@@ -95,4 +98,9 @@
 			icon: 'i-lucide-cog',
 		},
 	]);
+
+	const handleLogout = () => {
+		authClient.signOut();
+		navigateTo('/');
+	};
 </script>
