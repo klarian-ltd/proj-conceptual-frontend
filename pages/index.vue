@@ -38,7 +38,12 @@
 						</p>
 					</div>
 
-					<UForm class="space-y-4" @submit="onSubmit">
+					<UForm
+						:validate="validate"
+						:state="form"
+						class="space-y-4"
+						@submit="onSubmit"
+					>
 						<UFormField label="Username" name="username">
 							<UInput
 								v-model="form.username"
@@ -134,9 +139,10 @@
 </template>
 
 <script setup lang="ts">
-	import type { TabsItem } from '@nuxt/ui';
+	import type { FormError, FormSubmitEvent, TabsItem } from '@nuxt/ui';
 	import { reactive, ref } from 'vue';
 	import { authClient } from '../lib/auth-client';
+	import { navigateTo, useCookie, useRuntimeConfig } from 'nuxt/app';
 
 	const isToggled = ref(false);
 
@@ -164,10 +170,51 @@
 		password: '',
 	});
 
-	const sessionData = authClient.useSession();
+	const validate = (state: any): FormError[] => {
+		const errors = [];
+		if (!state.username) errors.push({ name: 'username', message: 'Required' });
+		if (!state.password) errors.push({ name: 'password', message: 'Required' });
+		return errors;
+	};
 
-	function onSubmit() {
+	const sessionData = authClient.useSession();
+	const config = useRuntimeConfig();
+
+	async function onSubmit(event: FormSubmitEvent<typeof form>) {
 		// Handle login logic
-		console.log('Logging in with', form);
+		const response = await fetch('http://localhost:8000/o/token/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: new URLSearchParams({
+				grant_type: 'password',
+				username: event.data.username,
+				password: event.data.password,
+				client_id: String(config.public.djangocredentialsClientId),
+				client_secret: String(config.djangocredentialsClientSecret),
+				scope: 'profile',
+			}),
+		});
+
+		// Parse the response as JSON to access tokens
+		const data = await response.json();
+		const token = data.access_token;
+		const refreshToken = data.refresh_token;
+
+		// Store securely (or use composables like useCookie, useAuth, etc.)
+		useCookie('access_token').value = token;
+
+		// Optionally fetch user info
+		await $fetch('http://localhost:8000/api/user', {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		try {
+			await navigateTo('/home');
+		} catch (err) {
+			console.error('Login failed:', err);
+		}
 	}
 </script>

@@ -10,8 +10,8 @@ export const auth = betterAuth({
 			config: [
 				{
 					providerId: 'django',
-					clientId: config.public.djangoClientId,
-					clientSecret: config.djangoClientSecret,
+					clientId: config.public.djangooauthClientId,
+					clientSecret: config.djangooauthClientSecret,
 					discoveryUrl: 'http://localhost:8000/openid-configuration',
 					scopes: ['profile'],
 					pkce: true,

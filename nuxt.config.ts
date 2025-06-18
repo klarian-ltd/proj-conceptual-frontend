@@ -26,12 +26,14 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		// Private variables, only available on the server
 		microsoftClientSecret: process.env.MICROSOFT_CLIENT_SECRET,
-		djangoClientSecret: process.env.DJANGO_CLIENT_SECRET,
+		djangooauthClientSecret: process.env.DJANGO_OAUTH_CLIENT_SECRET,
+		djangocredentialsClientSecret: process.env.DJANGO_CREDENTIAL_CLIENT_SECRET,
 
 		// Public variables, available on both client and server
 		public: {
 			microsoftClientId: process.env.MICROSOFT_CLIENT_ID,
-			djangoClientId: process.env.DJANGO_CLIENT_ID,
+			djangooauthClientId: process.env.DJANGO_OAUTH_CLIENT_ID,
+			djangocredentialsClientId: process.env.DJANGO_CREDENTIAL_CLIENT_ID,
 		},
 	},
 });
