@@ -19,9 +19,21 @@
 
 <script setup lang="ts">
 	defineProps({
-		label: String,
-		value: String,
-		change: String,
-		icon: String,
+		label: {
+			type: String,
+			required: true,
+        },
+		value: {
+			type: String,
+			required: true,
+        },
+		change: {
+			type: String,
+			required: true,
+        },
+		icon: {
+			type: String,
+			required: true,
+		},
 	});
 </script>
