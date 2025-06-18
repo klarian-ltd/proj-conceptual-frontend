@@ -1,30 +1,40 @@
 <template>
-	<div class="flex w-full flex-1 flex-col">
-		<div class="flex px-4 py-3.5">
-			<UInput v-model="globalFilter" class="max-w-sm" placeholder="Filter..." />
-		</div>
-		<div>
-			<UBadge
-				color="primary"
-				variant="outline"
-				class="ml-4 flex justify-center rounded-lg"
-			>
-				<UTable
-					ref="table"
-					v-model:global-filter="globalFilter"
-					v-model:pagination="pagination"
-					:data="data"
-					:columns="columns"
-					:pagination-options="{
-						getPaginationRowModel: getPaginationRowModel(),
-					}"
-					class="w-full"
+	<div class="flex h-screen overflow-hidden">
+		<!-- Sidebar -->
+		<Sidebar />
+
+		<!-- Inner Header Content Area -->
+		<main class="flex-1 overflow-auto p-6">
+			<div class="flex px-4 py-3.5">
+				<UInput
+					v-model="globalFilter"
+					class="max-w-sm"
+					placeholder="Filter..."
 				/>
-			</UBadge>
-		</div>
-		<div class="flex justify-center pt-4">
-			<UPagination />
-		</div>
+			</div>
+			<div>
+				<UBadge
+					color="primary"
+					variant="outline"
+					class="ml-4 flex justify-center rounded-lg"
+				>
+					<UTable
+						ref="table"
+						v-model:global-filter="globalFilter"
+						v-model:pagination="pagination"
+						:data="store.hardwareList"
+						:columns="columns"
+						:pagination-options="{
+							getPaginationRowModel: getPaginationRowModel(),
+						}"
+						class="w-full"
+					/>
+				</UBadge>
+			</div>
+			<div class="flex justify-center pt-4">
+				<UPagination />
+			</div>
+		</main>
 	</div>
 </template>
 
@@ -33,56 +43,15 @@
 	import { getPaginationRowModel } from '@tanstack/vue-table';
 	import type { TableColumn } from '@nuxt/ui';
 	import type { Table } from '@tanstack/vue-table'; // or '@tanstack/table-core' if used directly
+	import { useHardwareStore } from '@/store/hardwareStore';
 
 	const table = useTemplateRef<Table<any>>('table');
 
 	const UBadge = resolveComponent('UBadge');
 
-	type Hardware = {
-		id: string;
-		date: string;
-		status: 'paid' | 'failed' | 'refunded';
-		email: string;
-		amount: number;
-	};
+	const store = useHardwareStore();
 
-	const data = ref<Hardware[]>([
-		{
-			id: '4600',
-			date: '2024-03-11T15:30:00',
-			status: 'paid',
-			email: 'james.anderson@example.com',
-			amount: 594,
-		},
-		{
-			id: '4599',
-			date: '2024-03-11T10:10:00',
-			status: 'failed',
-			email: 'mia.white@example.com',
-			amount: 276,
-		},
-		{
-			id: '4598',
-			date: '2024-03-11T08:50:00',
-			status: 'refunded',
-			email: 'william.brown@example.com',
-			amount: 315,
-		},
-		{
-			id: '4597',
-			date: '2024-03-10T19:45:00',
-			status: 'paid',
-			email: 'emma.davis@example.com',
-			amount: 529,
-		},
-		{
-			id: '4596',
-			date: '2024-03-10T15:55:00',
-			status: 'paid',
-			email: 'ethan.harris@example.com',
-			amount: 639,
-		},
-	]);
+	type Hardware = typeof store.hardwareList extends (infer U)[] ? U : never;
 
 	const columns: TableColumn<Hardware>[] = [
 		{
@@ -143,10 +112,10 @@
 		},
 	];
 
-	const globalFilter = ref('45');
+	const globalFilter = ref('');
 
 	const pagination = ref({
 		pageIndex: 0,
-		pageSize: 5,
+		pageSize: 8,
 	});
 </script>
