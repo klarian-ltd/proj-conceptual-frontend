@@ -206,15 +206,20 @@
 		useCookie('access_token').value = token;
 
 		// Optionally fetch user info
-		await $fetch('http://localhost:8000/api/user', {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
 		try {
+			await $fetch('http://localhost:8000/api/user', {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
 			await navigateTo('/home');
 		} catch (err) {
 			console.error('Login failed:', err);
+			useToast().add({
+				title: 'Login failed',
+				description: 'Please try again',
+				color: 'red',
+			});
 		}
 	}
 </script>
