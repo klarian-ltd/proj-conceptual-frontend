@@ -1,6 +1,9 @@
 <template>
 	<div class="flex h-screen justify-center items-center">
 		<div class="flex min-h-screen items-center justify-center w-150">
+			<div class="absolute inset-0 -z-10">
+				<NuxtImg src="/flow.svg" alt="Background" class="h-full w-full object-cover" />
+			</div>
 			<!-- Circle in center -->
 			<div
 				class="absolute left-1/2 -translate-x-1/2 top-28 z-10 flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200"
