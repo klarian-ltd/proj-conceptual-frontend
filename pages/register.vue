@@ -36,7 +36,7 @@
 					</UForm>
 
 					<!-- Or Divider -->
-					<USeparator class="my-4" label="or" color="white"/>
+					<USeparator class="my-4" label="or" color="white" />
 
 					<!-- OAuth2 Sign-Up Button -->
 					<UButton
@@ -76,7 +76,9 @@
 					<!-- Two Logos -->
 					<div class="flex items-center space-x-8">
 						<!-- Left Logo -->
-						<div class="flex flex-col items-center transition-transform duration-200 hover:scale-110">
+						<div
+							class="flex flex-col items-center transition-transform duration-200 hover:scale-110"
+						>
 							<NuxtPicture
 								src="/orkuslogowhite.png"
 								width="100"
@@ -84,13 +86,15 @@
 								quality="80"
 								alt="Left Logo"
 							/>
-							<p class="mt-4 text-xs text-center">
+							<p class="mt-4 text-center text-xs">
 								A GeoHazard & Risk Management Tool
 							</p>
 						</div>
 
 						<!-- Right Logo -->
-						<div class="flex flex-col items-center mt-2 transition-transform duration-200 hover:scale-110">
+						<div
+							class="mt-2 flex flex-col items-center transition-transform duration-200 hover:scale-110"
+						>
 							<NuxtPicture
 								src="/junologowhite.png"
 								width="100"
@@ -98,7 +102,7 @@
 								quality="80"
 								alt="Right Logo"
 							/>
-							<p class="mt-4 text-xs text-center">
+							<p class="mt-4 text-center text-xs">
 								A Intelligent Pipeline Analysis Tool
 							</p>
 						</div>

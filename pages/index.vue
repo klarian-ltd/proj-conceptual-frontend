@@ -1,12 +1,16 @@
 <template>
-	<div class="flex h-screen justify-center items-center">
-		<div class="flex min-h-screen items-center justify-center w-150">
+	<div class="flex h-screen items-center justify-center">
+		<div class="flex min-h-screen w-150 flex-col items-center justify-center">
 			<div class="absolute inset-0 -z-10">
-				<NuxtImg src="/flow.svg" alt="Background" class="h-full w-full object-cover" />
+				<NuxtImg
+					src="/flow.svg"
+					alt="Background"
+					class="h-full w-full object-cover"
+				/>
 			</div>
 			<!-- Circle in center -->
 			<div
-				class="absolute left-1/2 -translate-x-1/2 top-28 z-10 flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200"
+				class="absolute top-31 left-1/2 z-10 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
 			>
 				<NuxtPicture
 					src="/bpa.png"
@@ -15,7 +19,9 @@
 					quality="80"
 				/>
 			</div>
-			<UCard class="w-full max-w-md rounded-2xl p-8 shadow-2xl border-white border-2">
+			<UCard
+				class="w-full max-w-md rounded-2xl border-2 border-white p-8 shadow-2xl"
+			>
 				<h1 class="mb-6 text-center text-2xl font-bold">
 					Log in to your account
 				</h1>
@@ -55,13 +61,6 @@
 
 					<UButton type="submit" block>Sign In</UButton>
 				</UForm>
-
-				<p class="mt-6 text-center text-sm">
-					Don't have an account?
-					<ULink to="/register" class="text-blue-600 hover:underline">
-						Sign up
-					</ULink>
-				</p>
 
 				<!-- Or Divider -->
 				<USeparator class="my-4" label="or" color="white" />
@@ -105,6 +104,7 @@
 					/>
 				</div>
 			</UCard>
+			<div class="mt-2 text-center text-xs text-white/50">Version 0.0.1</div>
 		</div>
 	</div>
 </template>
