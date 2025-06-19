@@ -10,7 +10,7 @@
 			</div>
 			<!-- Circle in center -->
 			<div
-				class="absolute top-31 left-1/2 z-10 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
+				class="absolute top-34 left-1/2 z-10 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
 			>
 				<NuxtPicture
 					src="/bpa.png"
@@ -93,7 +93,7 @@
 				</UButton>
 
 				<!-- Product Logo on bottom -->
-				<div class="mt-10 mb-6 flex flex-col items-center">
+				<div class="mt-10 flex flex-col items-center">
 					<p class="mb-2 text-xs">Powered By</p>
 					<NuxtPicture
 						src="/klarianlogowhite.png"
