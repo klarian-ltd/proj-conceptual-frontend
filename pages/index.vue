@@ -10,34 +10,6 @@
 						Login to your account
 					</h1>
 
-					<!-- Tabs -->
-					<UTabs
-						:unmount-on-hide="false"
-						:items="productitems"
-						class="w-full"
-						size="xl"
-						@click="isToggled = !isToggled"
-					/>
-
-					<!-- Product Logo on top -->
-					<div
-						class="m-8 flex flex-col items-center transition-transform duration-200 hover:scale-110"
-					>
-						<NuxtPicture
-							:src="isToggled ? '/orkuslogowhite.png' : '/junologowhite.png'"
-							width="120"
-							:height="isToggled ? '33' : 'auto'"
-							quality="80"
-							alt="Juno Logo"
-						/>
-						<p v-if="isToggled" class="mt-2 text-xs">
-							A GeoHazard & Risk Management Tool
-						</p>
-						<p v-else class="mt-2 text-xs">
-							A Intelligent Pipeline Analysis Tool
-						</p>
-					</div>
-
 					<UForm
 						:validate="validate"
 						:state="form"
@@ -74,7 +46,7 @@
 						<UButton type="submit" block>Sign In</UButton>
 					</UForm>
 
-					<p class="mt-6 text-center text-sm text-gray-600">
+					<p class="mt-6 text-center text-sm">
 						Don't have an account?
 						<ULink to="/register" class="text-blue-600 hover:underline">
 							Sign up
@@ -82,7 +54,7 @@
 					</p>
 
 					<!-- Or Divider -->
-					<USeparator class="my-4" label="or" />
+					<USeparator class="my-4" label="or" color="white" />
 
 					<!-- OAuth2 Sign-In Button -->
 					<UButton
@@ -111,7 +83,7 @@
 						Sign in with Microsoft
 					</UButton>
 
-					<!-- Product Logo on top -->
+					<!-- Product Logo on bottom -->
 					<div class="mt-10 mb-6 flex flex-col items-center">
 						<p class="mb-2">Powered By</p>
 						<NuxtPicture
@@ -121,6 +93,40 @@
 							quality="80"
 							alt="Product Logo"
 						/>
+
+						<!-- Divider -->
+						<USeparator class="my-6" color="white" />
+
+						<!-- Two Logos -->
+						<div class="flex items-center space-x-8">
+							<!-- Left Logo -->
+							<div class="flex flex-col items-center transition-transform duration-200 hover:scale-110">
+								<NuxtPicture
+									src="/orkuslogowhite.png"
+									width="100"
+									height="auto"
+									quality="80"
+									alt="Left Logo"
+								/>
+								<p class="mt-4 text-xs text-center">
+									A GeoHazard & Risk Management Tool
+								</p>
+							</div>
+
+							<!-- Right Logo -->
+							<div class="flex flex-col items-center mt-2 transition-transform duration-200 hover:scale-110">
+								<NuxtPicture
+									src="/junologowhite.png"
+									width="100"
+									height="auto"
+									quality="80"
+									alt="Right Logo"
+								/>
+								<p class="mt-4 text-xs text-center">
+									A Intelligent Pipeline Analysis Tool
+								</p>
+							</div>
+						</div>
 					</div>
 				</UCard>
 			</div>
@@ -139,23 +145,10 @@
 </template>
 
 <script setup lang="ts">
-	import type { FormError, FormSubmitEvent, TabsItem } from '@nuxt/ui';
-	import { reactive, ref } from 'vue';
+	import type { FormError, FormSubmitEvent } from '@nuxt/ui';
+	import { reactive } from 'vue';
 	import { authClient } from '../lib/auth-client';
 	import { navigateTo, useCookie, useRuntimeConfig } from 'nuxt/app';
-
-	const isToggled = ref(false);
-
-	const productitems = ref<TabsItem[]>([
-		{
-			label: 'Juno',
-			slot: 'juno', // If you use slot content
-		},
-		{
-			label: 'Orkus',
-			slot: 'orkus',
-		},
-	]);
 
 	const items = [
 		'/mountains.png',

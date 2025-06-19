@@ -36,9 +36,9 @@
 					</UForm>
 
 					<!-- Or Divider -->
-					<USeparator class="my-4" label="or" />
+					<USeparator class="my-4" label="or" color="white"/>
 
-					<!-- OAuth2 Sign-In Button -->
+					<!-- OAuth2 Sign-Up Button -->
 					<UButton
 						color="neutral"
 						block
@@ -48,7 +48,7 @@
 						Sign Up with OAuth2
 					</UButton>
 
-					<!-- Microsoft Sign-In Button -->
+					<!-- Microsoft Sign-Up Button -->
 					<UButton
 						color="neutral"
 						block
@@ -58,7 +58,7 @@
 						Sign Up with Microsoft
 					</UButton>
 
-					<!-- Product Logo on top -->
+					<!-- Product Logo on Bottom -->
 					<div class="mt-10 mb-6 flex flex-col items-center">
 						<p class="mb-2">Powered By</p>
 						<NuxtPicture
@@ -68,6 +68,40 @@
 							quality="80"
 							alt="Product Logo"
 						/>
+					</div>
+
+					<!-- Divider -->
+					<USeparator class="my-6" color="white" />
+
+					<!-- Two Logos -->
+					<div class="flex items-center space-x-8">
+						<!-- Left Logo -->
+						<div class="flex flex-col items-center transition-transform duration-200 hover:scale-110">
+							<NuxtPicture
+								src="/orkuslogowhite.png"
+								width="100"
+								height="auto"
+								quality="80"
+								alt="Left Logo"
+							/>
+							<p class="mt-4 text-xs text-center">
+								A GeoHazard & Risk Management Tool
+							</p>
+						</div>
+
+						<!-- Right Logo -->
+						<div class="flex flex-col items-center mt-2 transition-transform duration-200 hover:scale-110">
+							<NuxtPicture
+								src="/junologowhite.png"
+								width="100"
+								height="auto"
+								quality="80"
+								alt="Right Logo"
+							/>
+							<p class="mt-4 text-xs text-center">
+								A Intelligent Pipeline Analysis Tool
+							</p>
+						</div>
 					</div>
 				</UCard>
 			</div>
