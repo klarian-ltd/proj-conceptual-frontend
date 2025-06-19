@@ -1,7 +1,7 @@
 <template>
 	<div class="flex h-screen items-center justify-center">
 		<div class="flex min-h-screen w-150 flex-col items-center justify-center">
-			<div class="absolute inset-0 -z-10">
+			<div class="absolute inset-0 -z-10 opacity-50">
 				<NuxtImg
 					src="/flow.svg"
 					alt="Background"
