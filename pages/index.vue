@@ -8,20 +8,20 @@
 					class="h-full w-full object-cover"
 				/>
 			</div>
-			<!-- Circle in center -->
-			<div
-				class="absolute top-26 left-1/2 z-10 flex h-30 w-30 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
-			>
-				<NuxtPicture
-					src="/bpa.png"
-					alt="Center Icon"
-					class="rounded-full object-cover"
-					quality="80"
-				/>
-			</div>
 			<UCard
-				class="flex h-140 w-full max-w-md flex-col justify-center rounded-2xl border-2 border-white p-8 opacity-95 bg-blend-multiply shadow-2xl backdrop-blur-sm"
+				class="flex h-120 w-full max-w-md flex-col justify-center rounded-2xl p-8 opacity-95 bg-blend-multiply shadow-2xl"
 			>
+				<!-- Circle in center -->
+				<div
+					class="absolute top-34 left-1/2 z-10 flex h-30 w-30 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
+				>
+					<NuxtPicture
+						src="/bpa.png"
+						alt="Center Icon"
+						class="rounded-full object-cover"
+						quality="80"
+					/>
+				</div>
 				<UForm
 					:validate="validate"
 					:state="form"
@@ -47,6 +47,7 @@
 					</UFormField>
 
 					<div class="flex items-center justify-between">
+						<UCheckbox label="Remember me?" />
 						<ULink
 							to="/forgot-password"
 							class="text-sm text-blue-600 hover:underline"
@@ -55,17 +56,23 @@
 						</ULink>
 					</div>
 
-					<UButton type="submit" block>Sign In</UButton>
+					<UButton
+						type="submit"
+						block
+						class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 border backdrop-blur-[1px]"
+					>
+						Sign In
+					</UButton>
 				</UForm>
 
 				<!-- Or Divider -->
-				<USeparator class="my-4" label="or" color="white" />
+				<USeparator class="my-4 p-4" label="or" color="white" />
 
 				<!-- OAuth2 Sign-In Button -->
 				<UButton
 					color="neutral"
 					block
-					class="mb-4 flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300"
+					class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 mb-4 flex items-center justify-center border backdrop-blur-[1px]"
 					@click="
 						() =>
 							authClient.signIn.oauth2({
@@ -74,21 +81,13 @@
 							})
 					"
 				>
-					<UIcon name="devicon:oauth" class="size-8" />
-					Sign in with OAuth2
-				</UButton>
-
-				<!-- Microsoft Sign-In Button -->
-				<UButton
-					color="neutral"
-					block
-					class="flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300"
-				>
-					<UIcon name="logos:microsoft-icon" class="size-7" />
+					<UIcon name="logos:microsoft-icon" class="size-6" />
 					Sign in with Microsoft
 				</UButton>
 			</UCard>
-			<div class="mt-2 text-center text-xs text-white/50">Version 0.0.1</div>
+			<div class="mt-5 text-center text-xs text-white/50">
+				Platform Version 0.0.1 Beta
+			</div>
 			<!-- Product Logo on bottom -->
 			<div class="mt-10 flex flex-col items-center">
 				<p class="mb-2 text-xs">Powered By</p>
