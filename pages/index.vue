@@ -9,7 +9,7 @@
 				/>
 			</div>
 			<UCard
-				class="flex h-120 w-full max-w-md flex-col justify-center rounded-2xl p-8 opacity-95 bg-blend-multiply shadow-2xl"
+				class="flex h-120 w-full max-w-md flex-col justify-center rounded-2xl p-6 opacity-95 bg-blend-multiply shadow-2xl"
 			>
 				<!-- Circle in center -->
 				<div
@@ -68,11 +68,11 @@
 				<!-- Or Divider -->
 				<USeparator class="my-4 p-4" label="or" color="white" />
 
-				<!-- OAuth2 Sign-In Button -->
+				<!-- Mircrosoft Sign-In Button -->
 				<UButton
 					color="neutral"
 					block
-					class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 mb-4 flex items-center justify-center border backdrop-blur-[1px]"
+					class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 flex items-center justify-center border backdrop-blur-[1px]"
 					@click="
 						() =>
 							authClient.signIn.oauth2({
@@ -82,7 +82,7 @@
 					"
 				>
 					<UIcon name="logos:microsoft-icon" class="size-6" />
-					Sign in with Microsoft
+					Sign in with Microsoft 365
 				</UButton>
 			</UCard>
 			<div class="mt-5 text-center text-xs text-white/50">
@@ -100,22 +100,26 @@
 				/>
 			</div>
 		</div>
+		<!-- Theme Selector -->
+		<div class="fixed top-4 left-4 z-50">
+			<USelectMenu
+				v-model="value"
+				icon="fluent:dark-theme-20-filled"
+				:items="items"
+				class="w-48"
+			/>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 	import type { FormError, FormSubmitEvent } from '@nuxt/ui';
-	import { reactive } from 'vue';
+	import { reactive, ref } from 'vue';
 	import { authClient } from '../lib/auth-client';
 	import { navigateTo, useCookie, useRuntimeConfig } from 'nuxt/app';
 
-	const items = [
-		'/mountains.png',
-		'/pipelines.png',
-		'/waterpipes.png',
-		'/desert.png',
-		'/quarry.png',
-	];
+	const value = ref('Nuxt');
+	const items = ref(['Nuxt', 'Klarian-Light', 'Klarian-Dark', 'BPA']);
 
 	const form = reactive({
 		username: '',
