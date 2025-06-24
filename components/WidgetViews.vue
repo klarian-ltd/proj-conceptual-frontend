@@ -65,13 +65,19 @@
 				</div>
 
 				<!-- Middle Content -->
-				<UContextMenu size="xl" :items="getContextItems(item.i)">
+				<UModal>
 					<div
 						class="border-accented flex h-full items-center justify-center rounded-md border border-dashed text-sm"
 					>
-						Right Click Here To Add Content
+						Click Here To Add Content
 					</div>
-				</UContextMenu>
+					<template #body>
+						<div>
+							<UTabs :unmount-on-hide="false" :items="items" />
+							<PieChart />
+						</div>
+					</template>
+				</UModal>
 
 				<!-- Chart Modal -->
 				<!-- <ChartSlideover v-model:isModalopen="isModalOpen" /> -->
@@ -119,9 +125,9 @@
 
 <script setup lang="ts">
 	import { ref } from 'vue';
-	import type { ContextMenuItem } from '@nuxt/ui';
+	import type { TabsItem } from '@nuxt/ui';
 
-	// const isModalOpen = ref(false)
+	const isModalOpen = ref(false);
 
 	// Editing widget title state
 	const isEditingTitleOpen = ref(false);
@@ -136,41 +142,24 @@
 
 	const counter = ref(3);
 
-	function getContextItems(id: string): ContextMenuItem[] {
-		return [
-			// {
-			//   label: 'Add Chart',
-			//   icon: 'heroicons-solid:plus-circle',
-			//   onSelect() {
-			//     isModalOpen.value = true
-			//   },
-			// },
-			{
-				label: 'Charts',
-				type: 'label',
-			},
-			{
-				label: 'Pie',
-				icon: 'heroicons:chart-pie-20-solid',
-			},
-			{
-				label: 'Line',
-				icon: 'ic:round-line-axis',
-			},
-			{
-				label: 'Bar',
-				icon: 'ic:round-bar-chart',
-			},
-			{
-				label: 'Card',
-				type: 'label',
-			},
-			{
-				label: 'Numbers',
-				icon: 'ic:round-123',
-			},
-		];
-	}
+	const items = ref<TabsItem[]>([
+		{
+			label: 'Pie Chart',
+			icon: 'heroicons:chart-pie-20-solid',
+		},
+		{
+			label: 'Line Chart',
+			icon: 'ic:round-line-axis',
+		},
+		{
+			label: 'Bar Chart',
+			icon: 'ic:round-bar-chart',
+		},
+		{
+			label: 'Card',
+			icon: 'ic:round-123',
+		},
+	]);
 
 	function openEditTitle(id: string) {
 		const widget = layout.value.find((item) => item.i === id);

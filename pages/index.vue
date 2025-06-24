@@ -10,7 +10,7 @@
 			</div>
 			<!-- Circle in center -->
 			<div
-				class="absolute top-34 left-1/2 z-10 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
+				class="absolute top-26 left-1/2 z-10 flex h-30 w-30 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
 			>
 				<NuxtPicture
 					src="/bpa.png"
@@ -20,12 +20,8 @@
 				/>
 			</div>
 			<UCard
-				class="w-full max-w-md rounded-2xl border-2 border-white p-8 shadow-2xl"
+				class="flex h-140 w-full max-w-md flex-col justify-center rounded-2xl border-2 border-white p-8 opacity-95 bg-blend-multiply shadow-2xl backdrop-blur-sm"
 			>
-				<h1 class="mb-6 text-center text-2xl font-bold">
-					Log in to your account
-				</h1>
-
 				<UForm
 					:validate="validate"
 					:state="form"
@@ -91,20 +87,19 @@
 					<UIcon name="logos:microsoft-icon" class="size-7" />
 					Sign in with Microsoft
 				</UButton>
-
-				<!-- Product Logo on bottom -->
-				<div class="mt-10 flex flex-col items-center">
-					<p class="mb-2 text-xs">Powered By</p>
-					<NuxtPicture
-						src="/klarianlogowhite.png"
-						width="110"
-						height="auto"
-						quality="80"
-						alt="Product Logo"
-					/>
-				</div>
 			</UCard>
 			<div class="mt-2 text-center text-xs text-white/50">Version 0.0.1</div>
+			<!-- Product Logo on bottom -->
+			<div class="mt-10 flex flex-col items-center">
+				<p class="mb-2 text-xs">Powered By</p>
+				<NuxtPicture
+					src="/klarianlogowhite.png"
+					width="110"
+					height="auto"
+					quality="80"
+					alt="Product Logo"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
