@@ -5,6 +5,7 @@
 				label="New Chart Widget"
 				icon="i-lucide-plus"
 				target="_blank"
+				class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 border backdrop-blur-[1px]"
 				@click="addChartItem"
 			/>
 		</UTooltip>
@@ -13,7 +14,7 @@
 				label="New Card Widget"
 				icon="i-lucide-plus"
 				target="_blank"
-				class="ml-2"
+				class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-900 dark:text-primary-300 border-primary-400/20 ml-2 border backdrop-blur-[1px]"
 				@click="addCardItem"
 			/>
 		</UTooltip>
@@ -29,7 +30,7 @@
 		:margin="[10, 10]"
 		:use-css-transforms="true"
 		:auto-size="true"
-		class="rounded p-4 shadow"
+		class="rounded p-4"
 		@layout-updated="updateLayout"
 	>
 		<GridItem
@@ -43,9 +44,9 @@
 		>
 			<!-- Top Content -->
 			<div
-				class="relative flex h-full flex-col justify-between rounded border border-gray-300 p-4"
+				class="border-zinc relative flex h-full flex-col justify-between rounded border p-4"
 			>
-				<div class="mb-4 flex items-center justify-between">
+				<div class="flex items-center justify-between">
 					<span class="text-sm font-bold">{{ item.title }}</span>
 					<div class="flex">
 						<UTooltip text="Edit widget title">
@@ -65,16 +66,28 @@
 				</div>
 
 				<!-- Middle Content -->
-				<UContextMenu size="xl" :items="getContextItems(item.i)">
+				<UModal title="Chart Screen">
 					<div
-						class="border-accented flex h-full items-center justify-center rounded-md border border-dashed text-sm"
+						class="my-3 flex h-full items-center justify-center rounded-md border border-dashed text-sm text-gray-500"
 					>
-						Right Click Here To Add Content
+						Click Here To Add Content
 					</div>
-				</UContextMenu>
-
-				<!-- Chart Modal -->
-				<!-- <ChartSlideover v-model:isModalopen="isModalOpen" /> -->
+					<template #body>
+						<UTabs :items="items" variant="link" size="xl">
+							<template #content="{ item }">
+								<div v-if="item.isSelected === 'pie'">
+									<chartsPie />
+								</div>
+								<div v-if="item.isSelected === 'line'">
+									<chartsLine />
+								</div>
+								<div v-if="item.isSelected === 'bar'">
+									<chartsBar />
+								</div>
+							</template>
+						</UTabs>
+					</template>
+				</UModal>
 
 				<div class="mt-2 text-xs text-gray-600">
 					You can drag or resize this widget.
@@ -119,9 +132,7 @@
 
 <script setup lang="ts">
 	import { ref } from 'vue';
-	import type { ContextMenuItem } from '@nuxt/ui';
-
-	// const isModalOpen = ref(false)
+	import type { TabsItem } from '@nuxt/ui';
 
 	// Editing widget title state
 	const isEditingTitleOpen = ref(false);
@@ -136,41 +147,28 @@
 
 	const counter = ref(3);
 
-	function getContextItems(id: string): ContextMenuItem[] {
-		return [
-			// {
-			//   label: 'Add Chart',
-			//   icon: 'heroicons-solid:plus-circle',
-			//   onSelect() {
-			//     isModalOpen.value = true
-			//   },
-			// },
-			{
-				label: 'Charts',
-				type: 'label',
-			},
-			{
-				label: 'Pie',
-				icon: 'heroicons:chart-pie-20-solid',
-			},
-			{
-				label: 'Line',
-				icon: 'ic:round-line-axis',
-			},
-			{
-				label: 'Bar',
-				icon: 'ic:round-bar-chart',
-			},
-			{
-				label: 'Card',
-				type: 'label',
-			},
-			{
-				label: 'Numbers',
-				icon: 'ic:round-123',
-			},
-		];
-	}
+	const items = ref<TabsItem[]>([
+		{
+			label: 'Pie',
+			icon: 'heroicons:chart-pie-20-solid',
+			isSelected: 'pie',
+		},
+		{
+			label: 'Line',
+			icon: 'ic:round-line-axis',
+			isSelected: 'line',
+		},
+		{
+			label: 'Bar',
+			icon: 'ic:round-bar-chart',
+			isSelected: 'bar',
+		},
+		{
+			label: 'Scatter',
+			icon: 'ic:round-scatter-plot',
+			isSelected: 'scatter',
+		},
+	]);
 
 	function openEditTitle(id: string) {
 		const widget = layout.value.find((item) => item.i === id);

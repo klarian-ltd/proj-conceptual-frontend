@@ -11,6 +11,7 @@ export default defineNuxtConfig({
 		'@nuxtjs/tailwindcss',
 		'@pinia/nuxt',
 		'@nuxt/eslint',
+		['nuxt-plotly', { inject: true }],
 	],
 	css: ['~/assets/css/main.css'],
 	tailwindcss: {
@@ -24,6 +25,11 @@ export default defineNuxtConfig({
 	image: {
 		format: ['webp'],
 	},
+	vite: {
+		optimizeDeps: {
+			include: ['plotly.js-dist-min'],
+		},
+	},
 	runtimeConfig: {
 		// Private variables, only available on the server
 		microsoftClientSecret: process.env.MICROSOFT_CLIENT_SECRET,
@@ -35,6 +41,11 @@ export default defineNuxtConfig({
 			microsoftClientId: process.env.MICROSOFT_CLIENT_ID,
 			djangooauthClientId: process.env.DJANGO_OAUTH_CLIENT_ID,
 			djangocredentialsClientId: process.env.DJANGO_CREDENTIAL_CLIENT_ID,
+		},
+	},
+	ui: {
+		theme: {
+			colors: ['primary', 'secondary', 'info', 'success', 'warning', 'error'],
 		},
 	},
 });

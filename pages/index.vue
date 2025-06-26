@@ -3,29 +3,26 @@
 		<div class="flex min-h-screen w-150 flex-col items-center justify-center">
 			<div class="absolute inset-0 -z-10 opacity-50">
 				<NuxtImg
-					src="/flow.svg"
+					src="/klarianflow.svg"
 					alt="Background"
 					class="h-full w-full object-cover"
 				/>
 			</div>
-			<!-- Circle in center -->
-			<div
-				class="absolute top-34 left-1/2 z-10 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
-			>
-				<NuxtPicture
-					src="/bpa.png"
-					alt="Center Icon"
-					class="rounded-full object-cover"
-					quality="80"
-				/>
-			</div>
 			<UCard
-				class="w-full max-w-md rounded-2xl border-2 border-white p-8 shadow-2xl"
+				class="flex h-120 w-full max-w-md flex-col justify-center rounded-2xl p-6 opacity-95 shadow-2xl"
 			>
-				<h1 class="mb-6 text-center text-2xl font-bold">
-					Log in to your account
-				</h1>
-
+				<!-- Circle in center -->
+				<div
+					v-if="theme === 'Client-BPA'"
+					class="absolute top-34 left-1/2 z-10 flex h-30 w-30 -translate-x-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-200 transition-transform duration-200 hover:scale-110"
+				>
+					<NuxtPicture
+						src="/bpa.png"
+						alt="Center Icon"
+						class="rounded-full object-cover"
+						quality="80"
+					/>
+				</div>
 				<UForm
 					:validate="validate"
 					:state="form"
@@ -51,6 +48,7 @@
 					</UFormField>
 
 					<div class="flex items-center justify-between">
+						<UCheckbox label="Remember me?" />
 						<ULink
 							to="/forgot-password"
 							class="text-sm text-blue-600 hover:underline"
@@ -59,17 +57,22 @@
 						</ULink>
 					</div>
 
-					<UButton type="submit" block>Sign In</UButton>
+					<UButton
+						type="submit"
+						block
+						class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 border backdrop-blur-[1px]"
+					>
+						Sign In
+					</UButton>
 				</UForm>
 
 				<!-- Or Divider -->
-				<USeparator class="my-4" label="or" color="white" />
+				<USeparator class="my-4 p-4" label="or" color="primary" />
 
-				<!-- OAuth2 Sign-In Button -->
+				<!-- Mircrosoft Sign-In Button -->
 				<UButton
-					color="neutral"
 					block
-					class="mb-4 flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300"
+					class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 flex items-center justify-center border backdrop-blur-[1px]"
 					@click="
 						() =>
 							authClient.signIn.oauth2({
@@ -78,57 +81,81 @@
 							})
 					"
 				>
-					<UIcon name="devicon:oauth" class="size-8" />
-					Sign in with OAuth2
+					<UIcon name="logos:microsoft-icon" class="size-6" />
+					Sign in with Microsoft 365
 				</UButton>
-
-				<!-- Microsoft Sign-In Button -->
-				<UButton
-					color="neutral"
-					block
-					class="flex items-center justify-center gap-3 border border-gray-300 text-gray-800 shadow-md hover:bg-gray-300"
-				>
-					<UIcon name="logos:microsoft-icon" class="size-7" />
-					Sign in with Microsoft
-				</UButton>
-
-				<!-- Product Logo on bottom -->
-				<div class="mt-10 flex flex-col items-center">
-					<p class="mb-2 text-xs">Powered By</p>
-					<NuxtPicture
-						src="/klarianlogowhite.png"
-						width="110"
-						height="auto"
-						quality="80"
-						alt="Product Logo"
-					/>
-				</div>
 			</UCard>
-			<div class="mt-2 text-center text-xs text-white/50">Version 0.0.1</div>
+			<div class="mt-5 text-center text-xs">Platform Version 0.0.1 Beta</div>
+			<!-- Product Logo on bottom -->
+			<div class="mt-10 flex flex-col items-center">
+				<p class="mb-2 text-xs">Powered By</p>
+				<NuxtPicture
+					:src="theme === 'BPA' ? '/klarianlogo.png' : '/klarianlogowhite.png'"
+					width="110"
+					height="auto"
+					quality="80"
+					alt="Product Logo"
+				/>
+			</div>
+		</div>
+		<!-- Theme Selector -->
+		<div class="fixed top-4 left-4 z-50">
+			<USelectMenu
+				v-model="theme"
+				icon="fluent:dark-theme-20-filled"
+				:items="themes"
+				class="text-primary w-48"
+				@update:model-value="handleThemeChange"
+			/>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 	import type { FormError, FormSubmitEvent } from '@nuxt/ui';
-	import { reactive } from 'vue';
+	import { onMounted, reactive, ref } from 'vue';
 	import { authClient } from '../lib/auth-client';
 	import { navigateTo, useCookie, useRuntimeConfig } from 'nuxt/app';
 
-	const items = [
-		'/mountains.png',
-		'/pipelines.png',
-		'/waterpipes.png',
-		'/desert.png',
-		'/quarry.png',
+	const theme = ref('Client-Green');
+	const themes = ref([
+		'Client-Green',
+		'Client-Blue',
+		'Client-BPA',
+		'Client-Light',
+	]);
+
+	const themeClasses = [
+		'theme-client-green',
+		'theme-client-blue',
+		'theme-client-bpa',
+		'theme-client-light',
 	];
+
+	const handleThemeChange = (selected: string) => {
+		theme.value = selected;
+		localStorage.setItem('theme', selected);
+
+		const html = document.documentElement;
+		html.classList.remove(...themeClasses);
+
+		const themeClass = `theme-${selected.toLowerCase().replace(/\s+/g, '-')}`;
+		html.classList.add(themeClass);
+	};
+
+	// Load saved theme on mount
+	onMounted(() => {
+		const saved = localStorage.getItem('theme') || 'Client-Green';
+		theme.value = saved;
+		handleThemeChange(saved);
+	});
 
 	const form = reactive({
 		username: '',
 		password: '',
 	});
 
-	const validate = (state: any): FormError[] => {
+	const validate = (state: typeof form): FormError[] => {
 		const errors = [];
 		if (!state.username) errors.push({ name: 'username', message: 'Required' });
 		if (!state.password) errors.push({ name: 'password', message: 'Required' });

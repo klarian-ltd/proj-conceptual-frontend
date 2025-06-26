@@ -16,7 +16,7 @@
 						/>
 					</UTooltip>
 				</div>
-				<USeparator icon="ph:house-fill" class="px-3 pb-3" />
+				<USeparator icon="ph:house-fill" class="px-3 pb-3" color="primary" />
 			</header>
 			<div class="grid grid-cols-3 gap-4">
 				<StatCard

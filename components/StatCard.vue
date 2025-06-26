@@ -1,11 +1,11 @@
 <template>
-	<div class="rounded-lg border p-4 mx-2 shadow-sm">
+	<div class="border-primary mx-2 rounded-lg border p-4 shadow-sm">
 		<div class="flex items-center justify-between">
 			<h3 class="text-sm font-medium text-gray-500">{{ label }}</h3>
 			<UIcon :name="icon" class="text-gray-400" />
 		</div>
 		<div class="mt-2">
-			<p class="text-2xl font-semibold text-white">{{ value }}</p>
+			<p class="text-primary text-2xl font-semibold">{{ value }}</p>
 			<p
 				v-if="change"
 				class="text-sm"
