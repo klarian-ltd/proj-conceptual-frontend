@@ -1,20 +1,44 @@
 <template>
 	<div>
-		<h1>Test Re-Draw</h1>
-		<button :onClick="changeData" style="width: 100%">Change Data</button>
-		<button :onClick="changeLayout" style="width: 100%">Change Layout</button>
-		<button :onClick="changeConfig" style="width: 100%">Change Config</button>
-		<nuxt-plotly
-			:data="pieChart.data"
-			:layout="pieChart.layout"
-			:config="pieChart.config"
-			style="width: 100%"
-		></nuxt-plotly>
+		<div class="flex flex-row py-4">
+			<div class="flex w-full flex-col rounded-md border border-gray-500">
+				<h1 class="m-4 flex justify-center text-2xl font-bold">Preview</h1>
+				<nuxt-plotly
+					:data="pieChart.data"
+					:layout="layout.layout"
+					:config="pieChart.config"
+				></nuxt-plotly>
+			</div>
+			<div class="ml-4 flex w-full flex-col gap-2">
+				<chartsConfigExpand
+					icon="i-lucide-chevron-up"
+					label="Change Data"
+				>
+					<UButton class="mt-2 w-full justify-center" @click="changeData">Change Data</UButton>
+				</chartsConfigExpand>
+				<chartsConfigExpand
+					icon="i-lucide-chevron-up"
+					label="Change Layout"
+				>
+					<chartsConfigLayout :chart="layout" />
+				</chartsConfigExpand>
+				<chartsConfigExpand
+					icon="i-lucide-chevron-up"
+					label="Change Properties"
+				>
+					<chartsConfigProperties :chart="config" />
+				</chartsConfigExpand>
+			</div>
+		</div>
+		<UButton class="w-full justify-center" @click="applyChart">
+			Apply Chart
+		</UButton>
 	</div>
 </template>
 
 <script setup>
 	import { reactive } from 'vue';
+
 	const data = [
 		[
 			{
@@ -63,23 +87,17 @@
 		],
 	];
 
-	const layout = [
-		{
-			title: '[layout0] Pie Chart on `PieChart.client.vue`',
+	const layout = reactive({
+		data: data[0],
+		layout: {
+			title: 'Example Pie Chart',
 			paper_bgcolor: 'rgba(0,0,0,0)',
 			plot_bgcolor: 'rgba(0,0,0,0)',
 		},
-		{
-			title: '[layout1] Pie Chart on `PieChart.client.vue`',
-			paper_bgcolor: 'rgba(0,0,0,0)',
-			plot_bgcolor: 'rgba(0,0,0,0)',
-			showlegend: false,
-		},
-	];
+	});
 
 	const config = [
-		{ scrollZoom: true, displayModeBar: true },
-		{ scrollZoom: false, displayModeBar: false },
+		{ scrollZoom: true, displayModeBar: false },
 	];
 
 	const pieChart = reactive({
@@ -96,13 +114,7 @@
 		pieChart.changeDataNo = pieChart.changeDataNo == 1 ? 0 : 1;
 	}
 
-	function changeLayout() {
-		pieChart.layout = layout[pieChart.changeLayoutNo];
-		pieChart.changeLayoutNo = pieChart.changeLayoutNo == 1 ? 0 : 1;
-	}
-
-	function changeConfig() {
-		pieChart.config = config[pieChart.changeConfigNo];
-		pieChart.changeConfigNo = pieChart.changeConfigNo == 1 ? 0 : 1;
+	function applyChart() {
+		console.log(pieChart);
 	}
 </script>

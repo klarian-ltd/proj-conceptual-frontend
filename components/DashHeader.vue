@@ -4,16 +4,16 @@
 			placeholder="Select Network"
 			variant="soft"
 			:items="networkitems"
-			class="mr-2 w-48"
+			class="bg-primary mr-2 w-48"
 		/>
 		<USelectMenu
 			placeholder="Select Route"
 			variant="soft"
 			:items="pumpsitems"
-			class="mr-2 w-48"
+			class="bg-primary mr-2 w-48"
 		/>
 		<UPopover>
-			<UButton color="neutral" variant="subtle" icon="i-lucide-calendar">
+			<UButton color="primary" variant="subtle" icon="i-lucide-calendar">
 				<template v-if="modelValue.start">
 					<template v-if="modelValue.end">
 						{{ df.format(modelValue.start.toDate(getLocalTimeZone())) }} -

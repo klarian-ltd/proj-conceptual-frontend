@@ -5,6 +5,7 @@
 				label="New Chart Widget"
 				icon="i-lucide-plus"
 				target="_blank"
+				class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 border backdrop-blur-[1px]"
 				@click="addChartItem"
 			/>
 		</UTooltip>
@@ -13,7 +14,7 @@
 				label="New Card Widget"
 				icon="i-lucide-plus"
 				target="_blank"
-				class="ml-2"
+				class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-900 dark:text-primary-300 border-primary-400/20 ml-2 border backdrop-blur-[1px]"
 				@click="addCardItem"
 			/>
 		</UTooltip>
@@ -29,7 +30,7 @@
 		:margin="[10, 10]"
 		:use-css-transforms="true"
 		:auto-size="true"
-		class="rounded p-4 shadow"
+		class="rounded p-4"
 		@layout-updated="updateLayout"
 	>
 		<GridItem
@@ -43,9 +44,9 @@
 		>
 			<!-- Top Content -->
 			<div
-				class="relative flex h-full flex-col justify-between rounded border border-gray-300 p-4"
+				class="border-zinc relative flex h-full flex-col justify-between rounded border p-4"
 			>
-				<div class="mb-4 flex items-center justify-between">
+				<div class="flex items-center justify-between">
 					<span class="text-sm font-bold">{{ item.title }}</span>
 					<div class="flex">
 						<UTooltip text="Edit widget title">
@@ -65,22 +66,28 @@
 				</div>
 
 				<!-- Middle Content -->
-				<UModal>
+				<UModal title="Chart Screen">
 					<div
-						class="border-accented flex h-full items-center justify-center rounded-md border border-dashed text-sm"
+						class="my-3 flex h-full items-center justify-center rounded-md border border-dashed text-sm text-gray-500"
 					>
 						Click Here To Add Content
 					</div>
 					<template #body>
-						<div>
-							<UTabs :unmount-on-hide="false" :items="items" />
-							<PieChart />
-						</div>
+						<UTabs :items="items" variant="link" size="xl">
+							<template #content="{ item }">
+								<div v-if="item.isSelected === 'pie'">
+									<chartsPie />
+								</div>
+								<div v-if="item.isSelected === 'line'">
+									<chartsLine />
+								</div>
+								<div v-if="item.isSelected === 'bar'">
+									<chartsBar />
+								</div>
+							</template>
+						</UTabs>
 					</template>
 				</UModal>
-
-				<!-- Chart Modal -->
-				<!-- <ChartSlideover v-model:isModalopen="isModalOpen" /> -->
 
 				<div class="mt-2 text-xs text-gray-600">
 					You can drag or resize this widget.
@@ -127,8 +134,6 @@
 	import { ref } from 'vue';
 	import type { TabsItem } from '@nuxt/ui';
 
-	const isModalOpen = ref(false);
-
 	// Editing widget title state
 	const isEditingTitleOpen = ref(false);
 	const editingWidget = ref<{ id: string; title: string } | null>(null);
@@ -144,20 +149,24 @@
 
 	const items = ref<TabsItem[]>([
 		{
-			label: 'Pie Chart',
+			label: 'Pie',
 			icon: 'heroicons:chart-pie-20-solid',
+			isSelected: 'pie',
 		},
 		{
-			label: 'Line Chart',
+			label: 'Line',
 			icon: 'ic:round-line-axis',
+			isSelected: 'line',
 		},
 		{
-			label: 'Bar Chart',
+			label: 'Bar',
 			icon: 'ic:round-bar-chart',
+			isSelected: 'bar',
 		},
 		{
-			label: 'Card',
-			icon: 'ic:round-123',
+			label: 'Scatter',
+			icon: 'ic:round-scatter-plot',
+			isSelected: 'scatter',
 		},
 	]);
 
