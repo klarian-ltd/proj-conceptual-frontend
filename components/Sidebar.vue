@@ -1,11 +1,11 @@
 <template>
 	<!-- Sidebar -->
 	<aside
-		class="relative flex h-full flex-shrink-0 flex-col border-r-2 border-white bg-gray-900 p-4 text-white"
+		class="border-primary bg-klarian-slate-800 relative flex h-full flex-shrink-0 flex-col border-r-2 p-4"
 	>
 		<!-- Round button on the right border -->
 		<button
-			class="absolute top-1/2 right-0 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-gray-900 shadow transition-transform duration-200 hover:scale-110"
+			class="bg-primary absolute top-1/2 right-0 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-gray-900 shadow transition-transform duration-200 hover:scale-110"
 			@click="isToggled = !isToggled"
 		>
 			<UIcon
@@ -19,7 +19,12 @@
 		</button>
 
 		<!-- Navigation -->
-		<Navigation :is-toggled="isToggled" />
+		<UNavigationMenu
+			popover
+			:collapsed="isToggled"
+			orientation="vertical"
+			:items="NavigationItems"
+		/>
 
 		<!-- Avatar Group at the bottom -->
 		<div
@@ -39,7 +44,7 @@
 				alt="Juno Logo"
 				class="mb-6"
 			/>
-			<USeparator class="mb-4" />
+			<USeparator class="mb-4" color="primary" />
 			<!-- Avatar + Logout Button Row -->
 			<div
 				:class="
@@ -81,8 +86,12 @@
 	import type { DropdownMenuItem } from '@nuxt/ui';
 	import { authClient } from '~/lib/auth-client';
 	import { navigateTo } from 'nuxt/app';
+	import { useNavigationStore } from '@/store/navigationStore';
 
-	const isToggled = ref(false);
+	const navigationStore = useNavigationStore();
+
+	const isToggled = ref(navigationStore.isToggled);
+	const NavigationItems = ref(navigationStore.NavigationItems);
 
 	const dropitems = ref<DropdownMenuItem[]>([
 		{

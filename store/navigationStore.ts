@@ -1,21 +1,11 @@
-<template>
-	<UNavigationMenu
-		popover
-		:collapsed="isToggled"
-		orientation="vertical"
-		:items="items"
-	/>
-</template>
+import type { NavigationMenuItem } from '@nuxt/ui';
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
-<script setup lang="ts">
-	import { ref } from 'vue';
-	import type { NavigationMenuItem } from '@nuxt/ui';
+export const useNavigationStore = defineStore('navigation', () => {
+	const isToggled = ref(false);
 
-	defineProps({
-		isToggled: Boolean,
-	});
-
-	const items = ref<NavigationMenuItem[][]>([
+    const NavigationItems = ref<NavigationMenuItem[][]>([
 		[
 			{
 				label: 'Links',
@@ -96,4 +86,6 @@
 			},
 		],
 	]);
-</script>
+
+	return { isToggled, NavigationItems };
+});
