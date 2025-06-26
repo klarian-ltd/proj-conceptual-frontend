@@ -12,11 +12,17 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 		'@nuxt/eslint',
 		['nuxt-plotly', { inject: true }],
+		'nuxt-echarts',
 	],
 	css: ['~/assets/css/main.css'],
 	tailwindcss: {
 		exposeConfig: true,
 		viewer: true,
+	},
+	echarts: {
+		renderer: 'svg',
+		charts: ['ScatterChart'],
+		components: ['DatasetComponent', 'GridComponent', 'TooltipComponent'],
 	},
 	alias: {
 		'@@': resolve(__dirname, '/'),
