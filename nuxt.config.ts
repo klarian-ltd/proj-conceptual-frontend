@@ -12,7 +12,6 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 		'@nuxt/eslint',
 		['nuxt-plotly', { inject: true }],
-		'nuxt-plotly',
 	],
 	css: ['~/assets/css/main.css'],
 	tailwindcss: {
@@ -42,6 +41,11 @@ export default defineNuxtConfig({
 			microsoftClientId: process.env.MICROSOFT_CLIENT_ID,
 			djangooauthClientId: process.env.DJANGO_OAUTH_CLIENT_ID,
 			djangocredentialsClientId: process.env.DJANGO_CREDENTIAL_CLIENT_ID,
+		},
+	},
+	ui: {
+		theme: {
+			colors: ['primary', 'secondary', 'info', 'success', 'warning', 'error'],
 		},
 	},
 });
