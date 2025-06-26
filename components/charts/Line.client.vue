@@ -11,12 +11,17 @@
 			</div>
 			<div class="ml-4 flex w-full flex-col gap-2">
 				<chartsConfigExpand icon="i-lucide-chevron-up" label="Change Data">
-					<UButton class="mt-2 w-full justify-center" @click="changeData">Change Data</UButton>
+					<UButton class="mt-2 w-full justify-center" @click="changeData">
+						Change Data
+					</UButton>
 				</chartsConfigExpand>
 				<chartsConfigExpand icon="i-lucide-chevron-up" label="Change Layout">
 					<chartsConfigLayout :chart="lineChart" />
 				</chartsConfigExpand>
-				<chartsConfigExpand icon="i-lucide-chevron-up" label="Change Properties">
+				<chartsConfigExpand
+					icon="i-lucide-chevron-up"
+					label="Change Properties"
+				>
 					<chartsConfigProperties :chart="lineChart.config" />
 				</chartsConfigExpand>
 			</div>
@@ -32,7 +37,7 @@
 
 	const lineChart = reactive({
 		data: [
-            {
+			{
 				x: [1, 2, 3, 4, 5],
 				y: [1, 2, 3, 4, 5],
 				type: 'line',

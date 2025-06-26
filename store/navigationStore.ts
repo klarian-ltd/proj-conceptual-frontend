@@ -5,7 +5,7 @@ import { ref } from 'vue';
 export const useNavigationStore = defineStore('navigation', () => {
 	const isToggled = ref(false);
 
-    const NavigationItems = ref<NavigationMenuItem[][]>([
+	const NavigationItems = ref<NavigationMenuItem[][]>([
 		[
 			{
 				label: 'Links',

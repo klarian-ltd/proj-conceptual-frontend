@@ -10,16 +10,12 @@
 				></nuxt-plotly>
 			</div>
 			<div class="ml-4 flex w-full flex-col gap-2">
-				<chartsConfigExpand
-					icon="i-lucide-chevron-up"
-					label="Change Data"
-				>
-					<UButton class="mt-2 w-full justify-center" @click="changeData">Change Data</UButton>
+				<chartsConfigExpand icon="i-lucide-chevron-up" label="Change Data">
+					<UButton class="mt-2 w-full justify-center" @click="changeData">
+						Change Data
+					</UButton>
 				</chartsConfigExpand>
-				<chartsConfigExpand
-					icon="i-lucide-chevron-up"
-					label="Change Layout"
-				>
+				<chartsConfigExpand icon="i-lucide-chevron-up" label="Change Layout">
 					<chartsConfigLayout :chart="layout" />
 				</chartsConfigExpand>
 				<chartsConfigExpand
@@ -96,9 +92,7 @@
 		},
 	});
 
-	const config = [
-		{ scrollZoom: true, displayModeBar: false },
-	];
+	const config = [{ scrollZoom: true, displayModeBar: false }];
 
 	const pieChart = reactive({
 		changeDataNo: 1,
