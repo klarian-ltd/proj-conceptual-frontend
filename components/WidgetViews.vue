@@ -76,13 +76,19 @@
 						<UTabs :items="items" variant="link" size="xl">
 							<template #content="{ item }">
 								<div v-if="item.isSelected === 'pie'">
-									<chartsPie />
+									<chartsPlotlyPie />
 								</div>
 								<div v-if="item.isSelected === 'line'">
-									<chartsLine />
+									<chartsPlotlyLine />
 								</div>
 								<div v-if="item.isSelected === 'bar'">
-									<chartsBar />
+									<chartsPlotlyBar />
+								</div>
+								<div v-if="item.isSelected === 'scatter'">
+									<chartsEchartsScatter />
+								</div>
+								<div v-if="item.isSelected === 'heatmap'">
+									<chartsEchartsHeatmap />
 								</div>
 							</template>
 						</UTabs>
@@ -167,6 +173,11 @@
 			label: 'Scatter',
 			icon: 'ic:round-scatter-plot',
 			isSelected: 'scatter',
+		},
+		{
+			label: 'Heatmap',
+			icon: 'oui:heatmap',
+			isSelected: 'heatmap',
 		},
 	]);
 

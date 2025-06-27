@@ -1,4 +1,3 @@
-import { defineNuxtPlugin } from '#app';
 import { GridItem, GridLayout } from 'vue3-grid-layout';
 
 export default defineNuxtPlugin((nuxtApp) => {

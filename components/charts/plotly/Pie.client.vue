@@ -1,8 +1,9 @@
 <template>
 	<div>
 		<div class="flex flex-row py-4">
-			<div class="flex w-full flex-col rounded-md border border-gray-500">
-				<h1 class="m-4 flex justify-center text-2xl font-bold">Preview</h1>
+			<div class="border-primary-500 flex w-full flex-col rounded-md border">
+				<h1 class="mt-2 flex justify-center text-2xl font-bold">Preview</h1>
+				<USeparator class="p-4" color="primary" />
 				<nuxt-plotly
 					:data="pieChart.data"
 					:layout="layout.layout"
@@ -10,20 +11,17 @@
 				></nuxt-plotly>
 			</div>
 			<div class="ml-4 flex w-full flex-col gap-2">
-				<chartsConfigExpand icon="i-lucide-chevron-up" label="Change Data">
+				<chartsExpand icon="i-lucide-chevron-up" label="Change Data">
 					<UButton class="mt-2 w-full justify-center" @click="changeData">
 						Change Data
 					</UButton>
-				</chartsConfigExpand>
-				<chartsConfigExpand icon="i-lucide-chevron-up" label="Change Layout">
-					<chartsConfigLayout :chart="layout" />
-				</chartsConfigExpand>
-				<chartsConfigExpand
-					icon="i-lucide-chevron-up"
-					label="Change Properties"
-				>
-					<chartsConfigProperties :chart="config" />
-				</chartsConfigExpand>
+				</chartsExpand>
+				<chartsExpand icon="i-lucide-chevron-up" label="Change Layout">
+					<chartsPlotlyConfigLayout :chart="layout" />
+				</chartsExpand>
+				<chartsExpand icon="i-lucide-chevron-up" label="Change Properties">
+					<chartsPlotlyConfigProperties :chart="config" />
+				</chartsExpand>
 			</div>
 		</div>
 		<UButton class="w-full justify-center" @click="applyChart">
