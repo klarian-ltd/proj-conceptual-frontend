@@ -21,8 +21,15 @@ export default defineNuxtConfig({
 	},
 	echarts: {
 		renderer: 'svg',
-		charts: ['ScatterChart'],
-		components: ['DatasetComponent', 'GridComponent', 'TooltipComponent'],
+		charts: ['ScatterChart', 'HeatmapChart'],
+		components: [
+			'DatasetComponent',
+			'GridComponent',
+			'TooltipComponent',
+			'TitleComponent',
+			'LegendComponent',
+		],
+		features: ['LabelLayout', 'UniversalTransition'],
 	},
 	alias: {
 		'@@': resolve(__dirname, '/'),

@@ -1,15 +1,22 @@
-import type { ComposeOption } from 'echarts/core'
-import type { ScatterChartOption } from 'echarts/charts'
+import type { ScatterChartOption } from 'echarts/charts';
 import type {
-    DatasetComponentOption,
-    GridComponentOption,
-    TooltipComponentOption,
-  } from 'echarts/components'
+	DatasetComponentOption,
+	GridComponentOption,
+	LegendComponentOption,
+	TitleComponentOption,
+	TooltipComponentOption,
+} from 'echarts/components';
+import type { ComposeOption } from 'echarts/core';
 
 declare global {
-    type EChartsOption = ComposeOption<
-        DatasetComponentOption | GridComponentOption | TooltipComponentOption | ScatterChartOption
-    >
+	type ECOption = ComposeOption<
+		| DatasetComponentOption
+		| GridComponentOption
+		| TooltipComponentOption
+		| ScatterChartOption
+		| TitleComponentOption
+		| LegendComponentOption
+	>;
 }
 
-export {}
+export {};
