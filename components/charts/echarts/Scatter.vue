@@ -27,17 +27,7 @@
 </template>
 
 <script setup lang="ts">
-	import { computed, provide, reactive, ref } from 'vue';
-	import type { InitOptions } from 'nuxt-echarts/runtime/types';
-
-	const renderer = ref('svg');
-	const initOptions = computed<InitOptions>(() => ({
-		height: 450,
-		width: 500,
-		renderer: renderer.value,
-	}));
-
-	provide(INIT_OPTIONS_KEY, initOptions);
+	import { reactive } from 'vue';
 
 	const option = reactive<ECOption>({
 		title: {

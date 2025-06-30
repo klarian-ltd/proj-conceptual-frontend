@@ -25,17 +25,7 @@
 </template>
 
 <script setup lang="ts">
-	import { computed, provide, ref } from 'vue';
-	import type { InitOptions } from 'nuxt-echarts/runtime/types';
-
-	const renderer = ref<'canvas' | 'svg'>('svg');
-	const initOptions = computed<InitOptions>(() => ({
-		height: 450,
-		width: 500,
-		renderer: renderer.value as 'canvas' | 'svg',
-	}));
-
-	provide(INIT_OPTIONS_KEY, initOptions);
+	import { reactive } from 'vue';
 
 	const hours = [
 		'12a',
@@ -247,7 +237,7 @@
 		return [item[1], item[0], item[2] || '-'];
 	});
 
-	const option = ref<ECOption>({
+	const option = reactive<ECOption>({
 		title: {
 			text: 'test',
 			left: 'center',
