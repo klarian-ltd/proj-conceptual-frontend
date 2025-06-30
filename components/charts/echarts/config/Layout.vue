@@ -1,89 +1,70 @@
-<template>
-	<div class="mt-2 flex flex-row gap-2">
-		<UCard class="border-primary w-full border-1">
-			<h1 class="mb-4 text-xs font-bold">Display Options</h1>
+<template >
+    <div class="mt-2 flex flex-row gap-2">
+        <UCard class="border-primary w-full border-1">
+            <h1 class="mb-4 text-xs font-bold">Display Options</h1>
 			<UFormField label="Title">
 				<UInput
-					v-model="chartStore.chart.layout.title"
+					v-model="chartStore.chart.title.text"
 					label="Chart Title"
 					class="mb-4 w-full"
 				/>
-			</UFormField>
-			<UFormField label="Background Color">
-				<UInput
-					v-model="chartStore.chart.layout.paper_bgcolor"
-					label="Paper Background Color"
-					class="mb-4 w-full"
-				/>
-			</UFormField>
-			<UFormField
-				v-if="chart.data[0].type !== 'pie'"
-				label="Plot Background Color"
-			>
-				<UInput
-					v-model="chartStore.chart.layout.plot_bgcolor"
-					label="Plot Background Color"
-					class="mb-4 w-full"
-				/>
-			</UFormField>
-			<USwitch
-				v-model="chartStore.chart.layout.showlegend"
+            </UFormField>
+            <USwitch
+				v-model="chartStore.chart.legend.show"
 				label="Legend"
 				class="mt-4"
 				size="lg"
 			/>
-		</UCard>
-		<UCard
-			v-if="chart.data[0].type !== 'pie'"
+        </UCard>
+        <UCard
 			class="border-primary w-full border-1"
 		>
 			<h1 class="mb-4 text-xs font-bold">X Axis Configuration</h1>
 			<UFormField label="Title">
 				<UInput
-					v-model="chartStore.chart.layout.xaxis.title"
+					v-model="chartStore.chart.xAxis.name"
 					label="X Axis Name"
 					class="w-full"
 				/>
 			</UFormField>
 			<USwitch
-				v-model="chartStore.chart.layout.xaxis.showgrid"
+				v-model="chartStore.chart.xAxis.splitLine.show"
 				label="Show Grid"
 				class="mt-4"
 				size="lg"
 			/>
 			<USwitch
-				v-model="chartStore.chart.layout.xaxis.showline"
+				v-model="chartStore.chart.xAxis.axisLine.show"
 				label="Show Line"
 				class="mt-4"
 				size="lg"
 			/>
 		</UCard>
-		<UCard
-			v-if="chart.data[0].type !== 'pie'"
+        <UCard
 			class="border-primary w-full border-1"
 		>
 			<h1 class="mb-4 text-xs font-bold">Y Axis Configuration</h1>
 			<UFormField label="Title">
 				<UInput
-					v-model="chartStore.chart.layout.yaxis.title"
+					v-model="chartStore.chart.yAxis.name"
 					label="Y Axis Name"
 					class="w-full"
 				/>
 			</UFormField>
 			<USwitch
-				v-model="chartStore.chart.layout.yaxis.showgrid"
+				v-model="chartStore.chart.yAxis.splitLine.show"
 				label="Show Grid"
 				class="mt-4"
 				size="lg"
 			/>
 			<USwitch
-				v-model="chartStore.chart.layout.yaxis.showline"
+				v-model="chartStore.chart.yAxis.axisLine.show"
 				label="Show Line"
 				class="mt-4"
 				size="lg"
 			/>
 		</UCard>
-	</div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -107,7 +88,6 @@
 		() => props.chart,
 		(newChart) => {
 			chartStore.setChart(newChart);
-			chartStore.updateChartField('layout.showlegend', newChart.layout.showlegend);
 		},
 		{ deep: true }
 	);

@@ -13,10 +13,10 @@
 					</UButton>
 				</chartsExpand>
 				<chartsExpand icon="i-lucide-chevron-up" label="Change Layout">
-					<chartsEchartsConfigLayout :chart="layout" />
+					<chartsEchartsConfigLayout :chart="option" />
 				</chartsExpand>
 				<chartsExpand icon="i-lucide-chevron-up" label="Change Properties">
-					<chartsEchartsConfigProperties :chart="config" />
+					<UButton>Change Properties</UButton>
 				</chartsExpand>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-	import { computed, provide, ref } from 'vue';
+	import { computed, provide, reactive, ref } from 'vue';
 	import type { InitOptions } from 'nuxt-echarts/runtime/types';
 
 	const renderer = ref('svg');
@@ -39,7 +39,7 @@
 
 	provide(INIT_OPTIONS_KEY, initOptions);
 
-	const option = ref<ECOption>({
+	const option = reactive<ECOption>({
 		title: {
 			text: 'test',
 			left: 'center',
@@ -130,7 +130,6 @@
 		series: [{ type: 'scatter', name: 'test' }],
 		animation: false,
 		grid: {
-			z: 0,
 			left: '15%',
 			top: 60,
 			right: '15%',

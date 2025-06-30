@@ -28,6 +28,7 @@ export default defineNuxtConfig({
 			'TooltipComponent',
 			'TitleComponent',
 			'LegendComponent',
+			'VisualMapComponent',
 		],
 		features: ['LabelLayout', 'UniversalTransition'],
 	},
