@@ -3,16 +3,9 @@
 		<UCard class="border-primary w-full border-1">
 			<h1 class="text-xs font-bold">Properties</h1>
 			<USwitch
-				v-if="chartStore.chart.config"
-				v-model="chartStore.chart.config.displayModeBar"
-				label="Display Mode Bar"
-				class="mt-4"
-				size="lg"
-			/>
-			<USwitch
-				v-if="chartStore.chart.config"
-				v-model="chartStore.chart.config.scrollZoom"
-				label="Scroll Zoom"
+				v-if="chartStore.chart.grid"
+				v-model="chartStore.chart.grid.containLabel"
+				label="Contain Label"
 				class="mt-4"
 				size="lg"
 			/>

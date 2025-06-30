@@ -5,6 +5,7 @@ import type {
 	LegendComponentOption,
 	TitleComponentOption,
 	TooltipComponentOption,
+	VisualMapComponentOption,
 } from 'echarts/components';
 import type { ComposeOption } from 'echarts/core';
 
@@ -16,6 +17,7 @@ declare global {
 		| ScatterChartOption
 		| TitleComponentOption
 		| LegendComponentOption
+		| VisualMapComponentOption
 	>;
 }
 

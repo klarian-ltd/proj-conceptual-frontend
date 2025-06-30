@@ -4,80 +4,88 @@
 			<h1 class="mb-4 text-xs font-bold">Display Options</h1>
 			<UFormField label="Title">
 				<UInput
-					v-model="localChart.layout.title"
+					v-if="chartStore.chart.layout.title"
+					v-model="chartStore.chart.layout.title"
 					label="Chart Title"
 					class="mb-4 w-full"
 				/>
 			</UFormField>
 			<UFormField label="Background Color">
 				<UInput
-					v-model="localChart.layout.paper_bgcolor"
+					v-if="chartStore.chart.layout.paper_bgcolor"
+					v-model="chartStore.chart.layout.paper_bgcolor"
 					label="Paper Background Color"
 					class="mb-4 w-full"
 				/>
 			</UFormField>
 			<UFormField
-				v-if="chart.data[0].type !== 'pie'"
+				v-if="chartStore.chart.layout.plot_bgcolor"
 				label="Plot Background Color"
 			>
 				<UInput
-					v-model="localChart.layout.plot_bgcolor"
+					v-if="chartStore.chart.layout.plot_bgcolor"
+					v-model="chartStore.chart.layout.plot_bgcolor"
 					label="Plot Background Color"
 					class="mb-4 w-full"
 				/>
 			</UFormField>
 			<USwitch
-				v-model="localChart.layout.showlegend"
+				v-if="chartStore.chart.layout.showlegend"
+				v-model="chartStore.chart.layout.showlegend"
 				label="Legend"
 				class="mt-4"
 				size="lg"
 			/>
 		</UCard>
 		<UCard
-			v-if="chart.data[0].type !== 'pie'"
+			v-if="chartStore.chart.layout.xaxis"
 			class="border-primary w-full border-1"
 		>
 			<h1 class="mb-4 text-xs font-bold">X Axis Configuration</h1>
 			<UFormField label="Title">
 				<UInput
-					v-model="localChart.layout.xaxis.title"
+					v-model="chartStore.chart.layout.xaxis.title"
 					label="X Axis Name"
 					class="w-full"
 				/>
 			</UFormField>
 			<USwitch
-				v-model="localChart.layout.xaxis.showgrid"
+				v-if="chartStore.chart.layout.xaxis.showgrid"
+				v-model="chartStore.chart.layout.xaxis.showgrid"
 				label="Show Grid"
 				class="mt-4"
 				size="lg"
 			/>
 			<USwitch
-				v-model="localChart.layout.xaxis.showline"
+				v-if="chartStore.chart.layout.xaxis.showline"
+				v-model="chartStore.chart.layout.xaxis.showline"
 				label="Show Line"
 				class="mt-4"
 				size="lg"
 			/>
 		</UCard>
 		<UCard
-			v-if="chart.data[0].type !== 'pie'"
+			v-if="chartStore.chart.layout.yaxis"
 			class="border-primary w-full border-1"
 		>
 			<h1 class="mb-4 text-xs font-bold">Y Axis Configuration</h1>
 			<UFormField label="Title">
 				<UInput
-					v-model="localChart.layout.yaxis.title"
+					v-model="chartStore.chart.layout.yaxis.title"
 					label="Y Axis Name"
 					class="w-full"
 				/>
 			</UFormField>
 			<USwitch
-				v-model="localChart.layout.yaxis.showgrid"
+				v-if="chartStore.chart.layout.yaxis.showgrid"
+				v-model="chartStore.chart.layout.yaxis.showgrid"
 				label="Show Grid"
 				class="mt-4"
 				size="lg"
 			/>
 			<USwitch
-				v-model="localChart.layout.yaxis.showline"
+				v-if="chartStore.chart.layout.yaxis.showline"
+				v-model="chartStore.chart.layout.yaxis.showline"
 				label="Show Line"
 				class="mt-4"
 				size="lg"
@@ -87,7 +95,8 @@
 </template>
 
 <script setup lang="ts">
-	import { reactive, toRaw, watch } from 'vue';
+	import { watch, toRaw } from 'vue';
+	import { useChartStore } from '@/store/chartStore';
 
 	const props = defineProps<{
 		chart: Record<string, any>;
@@ -96,23 +105,25 @@
 		(e: 'update:chart', value: any): void;
 	}>();
 
-	// Clone the prop into a local reactive copy
-	const localChart = reactive({ ...toRaw(props.chart) });
+	const chartStore = useChartStore();
 
-	// Optional: Watch for external changes to chart prop and sync
+	// Initialize from props
+	chartStore.setChart(props.chart);
+
+	// Sync if parent updates chart
 	watch(
 		() => props.chart,
 		(newChart) => {
-			Object.assign(localChart, toRaw(newChart));
+			chartStore.setChart(newChart);
 		},
 		{ deep: true }
 	);
 
-	// Optional: Emit changes back to parent (if needed)
+	// Emit updates back to parent if needed
 	watch(
-		() => localChart,
+		() => chartStore.chart,
 		(updatedChart) => {
-			emit('update:chart', updatedChart);
+			emit('update:chart', toRaw(updatedChart));
 		},
 		{ deep: true }
 	);
