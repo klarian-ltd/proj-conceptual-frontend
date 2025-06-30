@@ -20,7 +20,7 @@
 					<chartsPlotlyConfigLayout :chart="lineChart" />
 				</chartsExpand>
 				<chartsExpand icon="i-lucide-chevron-up" label="Change Properties">
-					<chartsPlotlyConfigProperties :chart="lineChart.config" />
+					<chartsPlotlyConfigProperties :chart="lineChart" />
 				</chartsExpand>
 			</div>
 		</div>

@@ -16,7 +16,7 @@
 					<chartsEchartsConfigLayout :chart="option" />
 				</chartsExpand>
 				<chartsExpand icon="i-lucide-chevron-up" label="Change Properties">
-					<UButton>Change Properties</UButton>
+					<chartsEchartsConfigProperties :chart="option" />
 				</chartsExpand>
 			</div>
 		</div>

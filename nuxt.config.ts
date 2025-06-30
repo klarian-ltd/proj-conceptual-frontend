@@ -35,6 +35,7 @@ export default defineNuxtConfig({
 	alias: {
 		'@@': resolve(__dirname, '/'),
 		'@/types': resolve(__dirname, 'types'),
+		'@/store': resolve(__dirname, 'store'),
 	},
 	image: {
 		format: ['webp'],

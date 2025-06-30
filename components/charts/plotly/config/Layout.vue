@@ -115,7 +115,6 @@
 		() => props.chart,
 		(newChart) => {
 			chartStore.setChart(newChart);
-			chartStore.updateChartField('layout.showlegend', newChart.layout.showlegend);
 		},
 		{ deep: true }
 	);

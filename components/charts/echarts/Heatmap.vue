@@ -11,10 +11,10 @@
 					<UButton>Change Data</UButton>
 				</chartsExpand>
 				<chartsExpand icon="i-lucide-chevron-up" label="Change Layout">
-					<UButton>Change Layout</UButton>
+					<chartsEchartsConfigLayout :chart="option" />
 				</chartsExpand>
 				<chartsExpand icon="i-lucide-chevron-up" label="Change Properties">
-					<UButton>Change Properties</UButton>
+					<chartsEchartsConfigProperties :chart="option" />
 				</chartsExpand>
 			</div>
 		</div>
@@ -267,14 +267,14 @@
 			type: 'category',
 			data: hours,
 			splitArea: {
-				show: true,
+				show: false,
 			},
 		},
 		yAxis: {
 			type: 'category',
 			data: days,
 			splitArea: {
-				show: true,
+				show: false,
 			},
 		},
 		visualMap: {
