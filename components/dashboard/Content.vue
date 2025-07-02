@@ -1,17 +1,17 @@
 <template>
 	<div class="ml-3 flex">
-		<UTooltip text="Add a new chart widget">
+		<UTooltip text="Add a new widget">
 			<UButton
-				label="New Chart Widget"
+				label="Widget"
 				icon="i-lucide-plus"
 				target="_blank"
 				class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-600 dark:text-primary-300 border-primary-400/20 border backdrop-blur-[1px]"
 				@click="addChartItem"
 			/>
 		</UTooltip>
-		<UTooltip text="Add a new card widget">
+		<UTooltip text="Add a new card">
 			<UButton
-				label="New Card Widget"
+				label="Card"
 				icon="i-lucide-plus"
 				target="_blank"
 				class="bg-primary-300/20 hover:bg-primary-300/30 dark:bg-primary-400/20 dark:hover:bg-primary-400/30 text-primary-900 dark:text-primary-300 border-primary-400/20 ml-2 border backdrop-blur-[1px]"
@@ -66,14 +66,34 @@
 				</div>
 
 				<!-- Middle Content -->
-				<UModal title="Chart Screen">
+				<UModal v-if="item.title.startsWith('Card')" title="Card Content">
 					<div
 						class="my-3 flex h-full items-center justify-center rounded-md border border-dashed text-sm text-gray-500"
 					>
 						Click Here To Add Content
 					</div>
 					<template #body>
-						<UTabs :items="items" variant="link" size="xl">
+						<div v-if="item.title.startsWith('Card')">
+							<UTabs :items="smallitems" variant="link" size="xl">
+								<template #content="{ item }">
+									<div v-if="item.isSelected === 'stats'">
+										<StatsConfig />
+									</div>
+								</template>
+							</UTabs>
+						</div>
+					</template>
+				</UModal>
+
+				<UModal v-if="item.title.startsWith('Widget')" title="Widget Content">
+					<div
+						class="my-3 flex h-full items-center justify-center rounded-md border border-dashed text-sm text-gray-500"
+					>
+						Click Here To Add Content
+					</div>
+						<template #body>
+							<div v-if="item.title.startsWith('Widget')">
+						<UTabs :items="largeitems" variant="link" size="xl">
 							<template #content="{ item }">
 								<div v-if="item.isSelected === 'pie'">
 									<chartsPlotlyPie />
@@ -90,8 +110,12 @@
 								<div v-if="item.isSelected === 'heatmap'">
 									<chartsEchartsHeatmap />
 								</div>
-							</template>
-						</UTabs>
+								<div v-if="item.isSelected === 'map'">
+									<maps />
+								</div>
+								</template>
+							</UTabs>
+						</div>
 					</template>
 				</UModal>
 
@@ -145,39 +169,59 @@
 	const editingWidget = ref<{ id: string; title: string } | null>(null);
 
 	const layout = ref([
-		{ x: 0, y: 0, w: 3, h: 2, i: '0', title: 'Card 1' },
-		{ x: 3, y: 0, w: 3, h: 2, i: '1', title: 'Card 2' },
-		{ x: 0, y: 0, w: 6, h: 4, i: '2', title: 'Chart 1' },
-		{ x: 6, y: 0, w: 6, h: 4, i: '3', title: 'Chart 2' },
+		{ x: 0, y: 0, w: 3, h: 1, i: '0', title: 'Card 1' },
+		{ x: 3, y: 0, w: 3, h: 1, i: '1', title: 'Card 2' },
+		{ x: 0, y: 0, w: 6, h: 4, i: '2', title: 'Widget 1' },
+		{ x: 6, y: 0, w: 6, h: 4, i: '3', title: 'Widget 2' },
 	]);
 
 	const counter = ref(3);
 
-	const items = ref<TabsItem[]>([
+	const smallitems = ref<TabsItem[]>([
+		{
+			label: 'Stats',
+			icon: 'iconoir:stats-report',
+			isSelected: 'stats',
+			widgetType: 'small',
+		},
+	]);
+
+	const largeitems = ref<TabsItem[]>([
 		{
 			label: 'Pie',
 			icon: 'heroicons:chart-pie-20-solid',
 			isSelected: 'pie',
+			widgetType: 'large',
 		},
 		{
 			label: 'Line',
 			icon: 'ic:round-line-axis',
 			isSelected: 'line',
+			widgetType: 'large',
 		},
 		{
 			label: 'Bar',
 			icon: 'ic:round-bar-chart',
 			isSelected: 'bar',
+			widgetType: 'large',
 		},
 		{
 			label: 'Scatter',
 			icon: 'ic:round-scatter-plot',
 			isSelected: 'scatter',
+			widgetType: 'large',
 		},
 		{
 			label: 'Heatmap',
 			icon: 'oui:heatmap',
 			isSelected: 'heatmap',
+			widgetType: 'large',
+		},
+		{
+			label: 'Map',
+			icon: 'ic:round-map',
+			isSelected: 'map',
+			widgetType: 'large',
 		},
 	]);
 
@@ -244,14 +288,14 @@
 			w,
 			h,
 			i: String(counter.value),
-			title: `Chart ${counter.value}`,
+			title: `Widget ${counter.value}`,
 		});
 		counter.value++;
 	}
 
 	function addCardItem() {
 		const w = 3,
-			h = 2;
+			h = 1;
 		const { x, y } = findNextAvailablePosition(layout.value, w, h);
 		layout.value.push({
 			x,

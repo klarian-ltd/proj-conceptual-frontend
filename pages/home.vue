@@ -19,19 +19,19 @@
 				<USeparator icon="ph:house-fill" class="px-3 pb-3" color="primary" />
 			</header>
 			<div class="grid grid-cols-3 gap-4">
-				<StatCard
+				<StatsCard
 					label="Total Revenue"
 					value="$12,345"
 					change="+12.5%"
 					icon="i-lucide-dollar-sign"
 				/>
-				<StatCard
+				<StatsCard
 					label="Total Downtime"
 					value="12h 34m"
 					change="-8.3%"
 					icon="i-lucide-clock"
 				/>
-				<StatCard
+				<StatsCard
 					label="Total Assests"
 					value="300"
 					change="+20"

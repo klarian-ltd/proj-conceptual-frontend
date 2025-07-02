@@ -7,7 +7,7 @@
 			<!-- Inner Header Content Area -->
 			<div class="m-4 flex items-center justify-between">
 				<h1 class="text-primary text-3xl font-bold">Network Utilisation</h1>
-				<DashHeader />
+				<DashboardHeader />
 			</div>
 			<USeparator
 				icon="material-symbols-light:dashboard-customize-rounded"
@@ -15,7 +15,7 @@
 				color="primary"
 			/>
 			<!-- Inner Main Content Area -->
-			<WidgetViews />
+			<DashboardContent />
 		</main>
 	</div>
 </template>

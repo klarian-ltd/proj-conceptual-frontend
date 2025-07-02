@@ -69,14 +69,6 @@ export const useNavigationStore = defineStore('navigation', () => {
 						icon: 'ic:baseline-hardware',
 						to: '/things/hardware',
 					},
-					{
-						label: 'API',
-						icon: 'material-symbols:link',
-					},
-					{
-						label: 'Data Source',
-						icon: 'material-symbols:database-outline',
-					},
 				],
 			},
 			{
