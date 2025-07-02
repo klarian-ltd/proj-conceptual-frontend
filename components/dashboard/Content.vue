@@ -91,28 +91,28 @@
 					>
 						Click Here To Add Content
 					</div>
-						<template #body>
-							<div v-if="item.title.startsWith('Widget')">
-						<UTabs :items="largeitems" variant="link" size="xl">
-							<template #content="{ item }">
-								<div v-if="item.isSelected === 'pie'">
-									<chartsPlotlyPie />
-								</div>
-								<div v-if="item.isSelected === 'line'">
-									<chartsPlotlyLine />
-								</div>
-								<div v-if="item.isSelected === 'bar'">
-									<chartsPlotlyBar />
-								</div>
-								<div v-if="item.isSelected === 'scatter'">
-									<chartsEchartsScatter />
-								</div>
-								<div v-if="item.isSelected === 'heatmap'">
-									<chartsEchartsHeatmap />
-								</div>
-								<div v-if="item.isSelected === 'map'">
-									<maps />
-								</div>
+					<template #body>
+						<div v-if="item.title.startsWith('Widget')">
+							<UTabs :items="largeitems" variant="link" size="xl">
+								<template #content="{ item }">
+									<div v-if="item.isSelected === 'pie'">
+										<chartsPlotlyPie />
+									</div>
+									<div v-if="item.isSelected === 'line'">
+										<chartsPlotlyLine />
+									</div>
+									<div v-if="item.isSelected === 'bar'">
+										<chartsPlotlyBar />
+									</div>
+									<div v-if="item.isSelected === 'scatter'">
+										<chartsEchartsScatter />
+									</div>
+									<div v-if="item.isSelected === 'heatmap'">
+										<chartsEchartsHeatmap />
+									</div>
+									<div v-if="item.isSelected === 'map'">
+										<maps />
+									</div>
 								</template>
 							</UTabs>
 						</div>

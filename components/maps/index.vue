@@ -166,7 +166,10 @@
 		};
 	}
 
-	const lnglat = ref([-3.455318840685571, 50.73115849744835] as [number, number]);
+	const lnglat = ref([-3.455318840685571, 50.73115849744835] as [
+		number,
+		number,
+	]);
 	function changeLngLat() {
 		lnglat.value = [lnglat.value[0] + 1, lnglat.value[1] + 1];
 	}
