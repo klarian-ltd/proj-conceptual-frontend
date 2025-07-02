@@ -2,9 +2,16 @@
 	<div class="flex h-screen overflow-hidden">
 		<!-- Sidebar -->
 		<Sidebar />
-
 		<!-- Inner Header Content Area -->
 		<main class="flex-1 overflow-auto p-6">
+			<!-- Inner Header Content Area -->
+			<div class="m-4 flex items-center justify-between">
+				<h1 class="text-primary text-3xl font-bold">
+					{{ $route.meta.title }}
+				</h1>
+			</div>
+			<USeparator icon="ic:baseline-hardware" class="px-3 pb-3" color="primary" />
+
 			<div class="flex px-4 py-3.5">
 				<UInput
 					v-model="globalFilter"
@@ -43,6 +50,11 @@
 	import { getPaginationRowModel } from '@tanstack/vue-table';
 	import type { TableColumn } from '@nuxt/ui';
 	import { useHardwareStore } from '@/store/hardwareStore';
+	import { definePageMeta } from '#imports';
+
+	definePageMeta({
+		title: 'Hardware',
+	});
 
 	const UBadge = resolveComponent('UBadge');
 
