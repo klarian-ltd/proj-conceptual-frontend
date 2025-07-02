@@ -9,7 +9,7 @@
 						map-id="map"
 						:options="{
 							style, // style URL
-							center: [-3.455318840685571, 50.73115849744835], // starting position [lng, lat]
+							center: [lnglat[0], lnglat[1]], // starting position [lng, lat]
 							zoom: 15, // starting zoom
 						}"
 						:style="{
@@ -19,18 +19,6 @@
 						}"
 					>
 						<MapboxLayer v-if="enabled" :layer="layerRef" @click="showAlert" />
-						<MapboxSource v-if="enabled" source-id="geojson" :source="source" />
-						<MapboxDefaultMarker
-							marker-id="customHTMLMarker"
-							:lnglat="{ lng: -3.455318840685571, lat: 50.73115849744835 }"
-							:options="{
-								draggable: true,
-							}"
-						>
-							<template #marker>
-								<UButton @click="showAlert">Map Button!</UButton>
-							</template>
-						</MapboxDefaultMarker>
 						<MapboxDefaultMarker
 							v-model:lnglat="lnglat"
 							marker-id="marker1"
@@ -79,9 +67,6 @@
 				</div>
 			</div>
 			<div class="ml-4 flex w-full flex-col gap-2">
-				<UButton class="w-full justify-center" @click="changeData">
-					Change Data
-				</UButton>
 				<UButton class="w-full justify-center" @click="changeLngLat">
 					Move Marker
 				</UButton>
@@ -95,76 +80,17 @@
 </template>
 
 <script setup lang="ts">
-	import {
-		computed,
-		ref,
-		useMapboxMarkerRef,
-		useMapboxPopup,
-		useMapboxPopupRef,
-		useMapboxRef,
-	} from '#imports';
+	import { ref } from '#imports';
 	import { MapboxGeocoder } from '#components';
-	import type { SourceSpecification, FillLayerSpecification } from 'mapbox-gl';
+	import type { FillLayerSpecification } from 'mapbox-gl';
+
 	function showAlert() {
 		alert('Wow');
 	}
 
-	const source = ref<SourceSpecification>({
-		type: 'geojson',
-		data: '/test.geojson',
-	});
+	const geocoderRes = ref();
 
 	const enabled = ref(true);
-
-	const mapRef = useMapboxRef('map2');
-
-	const mapStyle = computed(() => {
-		return mapRef.value?.getStyle();
-	});
-
-	const marker = useMapboxMarkerRef('');
-	const popup = useMapboxPopupRef('');
-
-	const markerLatLng = computed(() => {
-		return marker.value?.getLngLat();
-	});
-
-	function changeData() {
-		source.value = {
-			type: 'geojson',
-			data: {
-				type: 'Feature',
-				geometry: {
-					type: 'Polygon',
-					// These coordinates outline Maine.
-					coordinates: [
-						[
-							[-67.13734, 45.13745],
-							[-66.96466, 44.8097],
-							[-68.03252, 44.3252],
-							[-69.06, 43.98],
-							[-70.11617, 43.68405],
-							[-70.64573, 43.09008],
-							[-70.75102, 43.08003],
-							[-70.79761, 43.21973],
-							[-70.98176, 43.36789],
-							[-70.94416, 43.46633],
-							[-71.08482, 45.30524],
-							[-70.66002, 45.46022],
-							[-70.30495, 45.91479],
-							[-70.00014, 46.69317],
-							[-69.23708, 47.44777],
-							[-68.90478, 47.18479],
-							[-68.2343, 47.35462],
-							[-67.79035, 47.06624],
-							[-67.79141, 45.70258],
-							[-67.13734, 45.13745],
-						],
-					],
-				},
-			},
-		};
-	}
 
 	const lnglat = ref([-3.455318840685571, 50.73115849744835] as [
 		number,
@@ -186,11 +112,6 @@
 		style.value = `mapbox://styles/mapbox/${randStyle}`;
 	}
 
-	const geocoderRef = ref<InstanceType<typeof MapboxGeocoder>>();
-	const geocoder = computed(() => geocoderRef.value?.geocoder);
-
-	const geocoderRes = ref();
-
 	const layerRef = ref<FillLayerSpecification>({
 		source: 'geojson',
 		id: 'geojson-layer',
@@ -199,4 +120,8 @@
 			'fill-color': 'rgb(0,0,0)',
 		},
 	});
+
+	function applyMap() {
+		console.log('applyMap');
+	}
 </script>
