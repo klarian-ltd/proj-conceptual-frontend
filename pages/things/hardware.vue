@@ -39,13 +39,10 @@
 </template>
 
 <script setup lang="ts">
-	import { h, resolveComponent, ref, useTemplateRef, computed } from 'vue';
+	import { h, resolveComponent, ref } from 'vue';
 	import { getPaginationRowModel } from '@tanstack/vue-table';
 	import type { TableColumn } from '@nuxt/ui';
-	import type { Table } from '@tanstack/vue-table'; // or '@tanstack/table-core' if used directly
 	import { useHardwareStore } from '@/store/hardwareStore';
-
-	const table = useTemplateRef<Table<any>>('table');
 
 	const UBadge = resolveComponent('UBadge');
 

@@ -7,14 +7,14 @@
 			<!-- Inner Header Content Area -->
 			<div class="m-4 flex items-center justify-between">
 				<h1 class="text-3xl font-bold">Pump Health</h1>
-				<DashHeader />
+				<DashboardHeader />
 			</div>
 			<USeparator
 				icon="material-symbols-light:dashboard-customize-rounded"
 				class="px-3 pb-3"
 			/>
 			<!-- Inner Main Content Area -->
-			<WidgetViews />
+			<DashboardContent />
 		</main>
 	</div>
 </template>

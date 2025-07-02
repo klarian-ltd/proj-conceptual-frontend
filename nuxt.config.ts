@@ -13,11 +13,15 @@ export default defineNuxtConfig({
 		'@nuxt/eslint',
 		['nuxt-plotly', { inject: true }],
 		'nuxt-echarts',
+		'nuxt-mapbox',
 	],
 	css: ['~/assets/css/main.css'],
 	tailwindcss: {
 		exposeConfig: true,
 		viewer: true,
+	},
+	mapbox: {
+		accessToken: process.env.MAPBOX_ACCESS_TOKEN,
 	},
 	echarts: {
 		renderer: 'svg',
