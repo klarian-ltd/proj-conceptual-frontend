@@ -10,7 +10,8 @@
 		"postinstall": "nuxt prepare",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"prettier": "prettier --write ."
+		"prettier": "prettier --write .",
+		"start": "node .output/server/index.mjs"
 	},
 	"dependencies": {
 		"@nuxt/eslint": "^1.4.1",
