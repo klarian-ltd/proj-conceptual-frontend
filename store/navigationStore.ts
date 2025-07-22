@@ -72,6 +72,11 @@ export const useNavigationStore = defineStore('navigation', () => {
 				],
 			},
 			{
+				label: 'Test Backend',
+				icon: 'ic:outline-settings-ethernet',
+				to: '/test-backend',
+			},
+			{
 				label: 'Help',
 				icon: 'i-lucide-circle-help',
 				disabled: true,
