@@ -13,16 +13,20 @@
 		"prettier": "prettier --write ."
 	},
 	"dependencies": {
-		"@nuxt/eslint": "^1.4.1",
-		"@nuxt/icon": "^1.13.0",
+		"@nuxt/eslint": "^1.5.2",
+		"@nuxt/icon": "^1.15.0",
 		"@nuxt/image": "^1.10.0",
-		"@nuxt/ui": "^3.1.3",
+		"@nuxt/ui": "^3.2.0",
 		"@nuxtjs/tailwindcss": "^7.0.0-beta.0",
 		"@pinia/nuxt": "^0.11.1",
+		"@vue-flow/background": "^1.3.2",
+		"@vue-flow/controls": "^1.1.2",
+		"@vue-flow/core": "^1.45.0",
+		"@vue-flow/minimap": "^1.5.3",
 		"better-auth": "^1.2.9",
 		"echarts": "^5.6.0",
-		"eslint": "^9.29.0",
-		"nuxt": "^3.17.5",
+		"eslint": "^9.30.1",
+		"nuxt": "^3.17.6",
 		"nuxt-echarts": "^0.3.3",
 		"nuxt-mapbox": "^1.6.3",
 		"nuxt-plotly": "^1.0.14",
@@ -38,8 +42,8 @@
 		"@types/mapbox-gl": "^3.4.1",
 		"eslint-config-prettier": "^10.1.5",
 		"mapbox-gl": "^3.13.0",
-		"prettier": "^3.5.3",
+		"prettier": "^3.6.2",
 		"prettier-plugin-organize-imports": "^4.1.0",
-		"prettier-plugin-tailwindcss": "^0.6.12"
+		"prettier-plugin-tailwindcss": "^0.6.13"
 	}
 }

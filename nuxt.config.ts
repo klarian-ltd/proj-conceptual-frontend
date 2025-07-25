@@ -15,7 +15,7 @@ export default defineNuxtConfig({
 		'nuxt-echarts',
 		'nuxt-mapbox',
 	],
-	css: ['~/assets/css/main.css'],
+	css: ['~/assets/css/main.css', '@vue-flow/core/dist/style.css'],
 	tailwindcss: {
 		exposeConfig: true,
 		viewer: true,
@@ -25,7 +25,7 @@ export default defineNuxtConfig({
 	},
 	echarts: {
 		renderer: 'svg',
-		charts: ['ScatterChart', 'HeatmapChart'],
+		charts: ['ScatterChart', 'HeatmapChart', 'BarChart'],
 		components: [
 			'DatasetComponent',
 			'GridComponent',
@@ -40,6 +40,7 @@ export default defineNuxtConfig({
 		'@@': resolve(__dirname, '/'),
 		'@/types': resolve(__dirname, 'types'),
 		'@/store': resolve(__dirname, 'store'),
+		'@/composables': resolve(__dirname, 'composables'),
 	},
 	image: {
 		format: ['webp'],

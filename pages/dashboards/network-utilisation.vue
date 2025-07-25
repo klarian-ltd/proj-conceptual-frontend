@@ -6,7 +6,9 @@
 		<main class="flex-1 overflow-auto p-6">
 			<!-- Inner Header Content Area -->
 			<div class="m-4 flex items-center justify-between">
-				<h1 class="text-primary text-3xl font-bold">Network Utilisation</h1>
+				<h1 class="text-primary text-3xl font-bold">
+					{{ $route.meta.title }}
+				</h1>
 				<DashboardHeader />
 			</div>
 			<USeparator
@@ -19,3 +21,11 @@
 		</main>
 	</div>
 </template>
+
+<script setup lang="ts">
+	import { definePageMeta } from '#imports';
+
+	definePageMeta({
+		title: 'Network Utilisation',
+	});
+</script>

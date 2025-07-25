@@ -1,5 +1,5 @@
 <template>
-	<div class="border-primary mx-2 rounded-lg border p-4 shadow-sm">
+	<div class="mx-2 rounded-lg border border-zinc-200 p-4 shadow-lg">
 		<div class="flex items-center justify-between">
 			<h3 class="text-sm font-medium text-gray-500">{{ label }}</h3>
 			<UIcon :name="icon" class="text-gray-400" />

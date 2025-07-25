@@ -1,6 +1,7 @@
 import withNuxt from './.nuxt/eslint.config.mjs';
 
 export default withNuxt({
+	ignores: ['.nuxt', 'output', 'node_modules', 'public', '**/*.d.ts'],
 	files: ['**/*.ts', '**/*.vue', '**/*.js'],
 	rules: {
 		'@typescript-eslint/no-explicit-any': 'warn',

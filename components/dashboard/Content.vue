@@ -102,7 +102,7 @@
 										<chartsPlotlyLine />
 									</div>
 									<div v-if="item.isSelected === 'bar'">
-										<chartsPlotlyBar />
+										<chartsEchartsBar />
 									</div>
 									<div v-if="item.isSelected === 'scatter'">
 										<chartsEchartsScatter />

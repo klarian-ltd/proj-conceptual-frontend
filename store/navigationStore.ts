@@ -16,6 +16,13 @@ export const useNavigationStore = defineStore('navigation', () => {
 				to: '/home',
 				icon: 'ph:house-fill',
 			},
+		],
+		[
+			{
+				label: 'Flow Builder',
+				icon: 'garden:workflow-26',
+				to: '/flows',
+			},
 			{
 				label: 'Dashboards',
 				icon: 'material-symbols-light:dashboard-customize-rounded',
@@ -58,8 +65,6 @@ export const useNavigationStore = defineStore('navigation', () => {
 					},
 				],
 			},
-		],
-		[
 			{
 				label: 'Things',
 				icon: 'material-symbols:layers-outline',
