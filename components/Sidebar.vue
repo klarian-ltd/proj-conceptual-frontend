@@ -1,22 +1,35 @@
 <template>
 	<!-- Sidebar -->
 	<aside
-		class="border-primary bg-klarian-slate-800 relative flex h-full flex-shrink-0 flex-col border-r-2 p-4"
+		class="border-primary rainbow-right-border relative flex h-full flex-shrink-0 flex-col bg-zinc-900 p-4"
 	>
-		<!-- Round button on the right border -->
-		<button
-			class="bg-primary absolute top-1/2 right-0 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-gray-900 shadow transition-transform duration-200 hover:scale-110"
-			@click="isToggled = !isToggled"
+		<!-- Wrapper zone containing both hover area and icon -->
+		<div
+			class="absolute top-0 left-0 h-100 w-55"
+			@mouseenter="showToggleIcon = true"
+			@mouseleave="showToggleIcon = false"
 		>
-			<UIcon
-				:name="
-					isToggled
-						? 'heroicons-solid:arrow-circle-right'
-						: 'heroicons-solid:arrow-circle-left'
-				"
-				class="size-8"
-			/>
-		</button>
+			<!-- Toggle icon with smooth transition -->
+			<div
+				class="bg-primary absolute bottom-1/4 z-10 flex h-8 w-8 -translate-y-1/2 transform items-center justify-center rounded-full text-gray-900 shadow transition-opacity transition-transform duration-200 duration-300 ease-in-out hover:scale-110"
+				:class="{
+					'pointer-events-none opacity-0': !showToggleIcon,
+					'opacity-100': showToggleIcon,
+					'left-13': isToggled,
+					'left-41': !isToggled,
+				}"
+				@click.stop="isToggled = !isToggled"
+			>
+				<UIcon
+					:name="
+						isToggled
+							? 'mingcute:arrows-right-fill'
+							: 'mingcute:arrows-left-fill'
+					"
+					class="size-10"
+				/>
+			</div>
+		</div>
 
 		<!-- Navigation -->
 		<UNavigationMenu
@@ -24,6 +37,7 @@
 			:collapsed="isToggled"
 			orientation="vertical"
 			:items="NavigationItems"
+			class="z-30"
 		/>
 
 		<!-- Avatar Group at the bottom -->
@@ -36,14 +50,21 @@
 			"
 		>
 			<!-- Juno Logo on top -->
-			<NuxtPicture
-				:src="isToggled ? '/junobrandicon.png' : '/junologowhite.png'"
-				:width="isToggled ? '20' : '120'"
-				height="auto"
-				quality="80"
-				alt="Juno Logo"
-				class="mb-6"
-			/>
+			<div
+				:class="
+					isToggled
+						? 'bg-primary mb-4 rounded-sm p-2'
+						: 'bg-primary mb-4 rounded-lg p-4'
+				"
+			>
+				<NuxtPicture
+					:src="isToggled ? '/junobrandicon.png' : '/junologowhite.png'"
+					:width="isToggled ? '20' : '120'"
+					height="auto"
+					quality="80"
+					alt="Juno Logo"
+				/>
+			</div>
 			<USeparator class="mb-4" color="primary" />
 			<!-- Avatar + Logout Button Row -->
 			<div
@@ -82,11 +103,13 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from 'vue';
 	import type { DropdownMenuItem } from '@nuxt/ui';
 	import { authClient } from '~/lib/auth-client';
 	import { navigateTo } from 'nuxt/app';
 	import { useNavigationStore } from '@/store/navigationStore';
+	import { ref } from 'vue';
+
+	const showToggleIcon = ref(false);
 
 	const navigationStore = useNavigationStore();
 

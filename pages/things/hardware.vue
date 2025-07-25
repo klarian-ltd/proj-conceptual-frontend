@@ -10,7 +10,11 @@
 					{{ $route.meta.title }}
 				</h1>
 			</div>
-			<USeparator icon="ic:baseline-hardware" class="px-3 pb-3" color="primary" />
+			<USeparator
+				icon="ic:baseline-hardware"
+				class="px-3 pb-3"
+				color="primary"
+			/>
 
 			<div class="flex px-4 py-3.5">
 				<UInput

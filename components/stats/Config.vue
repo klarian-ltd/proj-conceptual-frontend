@@ -2,7 +2,8 @@
 	<div>
 		<div class="flex flex-row py-4">
 			<div
-				class="border-primary-500 flex w-full flex-col rounded-md border p-4"
+				class="border-primary flex w-full flex-col space-y-4 rounded-md border p-4"
+				style="border-width: 1px"
 			>
 				<h1 class="mt-2 flex justify-center text-2xl font-bold">Preview</h1>
 				<USeparator class="p-4" color="primary" />
@@ -13,9 +14,9 @@
 					:icon="icon"
 				/>
 			</div>
-			<UCard class="border-primary ml-4 w-full border-1">
+			<UCard class="ml-4 w-full">
 				<UFormField label="Label">
-					<UInput v-model="label" placeholder="Label" class="w-full" />
+					<UInput v-model="label" placeholder="Label" class="w-full text-xs" />
 				</UFormField>
 				<UFormField label="Value" class="my-2">
 					<UInput v-model="value" placeholder="Value" class="w-full" />
