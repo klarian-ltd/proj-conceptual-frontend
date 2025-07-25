@@ -5,10 +5,10 @@ export default defineAppConfig({
 				variants: {
 					variant: {
 						none: 'text-primary',
-						},
 					},
 				},
 			},
+		},
 		navigationMenu: {
 			slots: {
 				label: 'text-primary',

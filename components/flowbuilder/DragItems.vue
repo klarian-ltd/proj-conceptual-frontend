@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDragAndDrop } from '@/composables/useDragAndDrop';
+	import { useDragAndDrop } from '@/composables/useDragAndDrop';
 
-const { onDragStart } = useDragAndDrop();
+	const { onDragStart } = useDragAndDrop();
 </script>
